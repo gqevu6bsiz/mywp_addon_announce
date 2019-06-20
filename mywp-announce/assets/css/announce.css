@@ -1,0 +1,11 @@
+.mywp-announce.normal {
+  border-color: #ababab;
+}
+.mywp-announce.default {
+  background: none;
+  border-style: none;
+  box-shadow: none;
+}
+.mywp-announce .title {
+  font-weight: bold;
+}

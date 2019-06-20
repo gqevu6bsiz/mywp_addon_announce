@@ -1,0 +1,173 @@
+#version-check-table .spinner {
+  visibility: hidden;
+}
+#version-check-table.checking .spinner {
+  visibility: visible;
+}
+#version-check-table .link-latest {
+  margin-left: 12px;
+  display: none;
+}
+#version-check-table .already-latest {
+  display: inline-block;
+}
+#version-check-table .check-latest {
+}
+#version-check-table.have-latest .link-latest {
+  display: inline-block;
+}
+#version-check-table.have-latest .already-latest {
+  display: none;
+}
+#setting-screen-announce-item-add {}
+#setting-screen-announce-items {
+  padding: 30px 0;
+}
+#setting-screen-announce-items .setting-screen-announce-item {
+  border: 1px solid #ddd;
+}
+#setting-screen-announce-items .setting-screen-announce-item:hover {
+  border-color: #999;
+}
+#setting-screen-announce-items .setting-screen-announce-item.active {
+  background: #FEF5EA;
+  border-color: #F49C31;
+}
+#setting-screen-announce-items .sortable-placeholder,
+#setting-screen-announce-items .setting-screen-announce-item .item-header {
+  height: 38px;
+}
+#setting-screen-announce-items .sortable-placeholder {
+  margin: 0;
+  background: #ccc;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-header {
+  cursor: move;
+  background: #fafafa;
+  line-height: 38px;
+  overflow:  hidden;
+}
+#setting-screen-announce-items .setting-screen-announce-item.active > .item-header {
+  border-bottom: 1px solid #F49C31;
+  background: #F7E0C5;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-header .item-active-toggle {
+  float: right;
+  display: inline-block;
+  width: 38px;
+  height: 38px;
+  text-decoration: none;
+  color: #72777c;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-header .item-active-toggle:hover {
+  color: #23282d;
+  background: #F9CD98;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-header .item-active-toggle:focus {
+  box-shadow: none;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-header .item-active-toggle:before {
+  font: 400 20px/1 dashicons;
+  content: "\f140";
+  display: block;
+  text-align: center;
+  padding-top: 10px;
+}
+#setting-screen-announce-items .setting-screen-announce-item.active > .item-header .item-active-toggle:before {
+  content: "\f142";
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-header .item-title-wrap {
+  margin-left: 10px;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-header .item-title-wrap .item-state {
+  font-size: 10px;
+  line-height: 14px;
+  padding: 2px 4px;
+  color: #fff;
+  background: #bbb;
+  display: inline-block;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-header .item-title-wrap .item-title {}
+#setting-screen-announce-items .setting-screen-announce-item .item-header .item-title-wrap .item-type {
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  margin: 0 5px 0 0;
+  display: inline-block;
+  content: " ";
+  vertical-align: middle;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-header .item-title-wrap .item-type.type-default {
+  background: none;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-header .item-title-wrap .item-type.type-normal {
+  background: #d0d0d0;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-header .item-title-wrap .item-type.type-updated {
+  background: #46b450;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-header .item-title-wrap .item-type.type-error {
+  background: #dc3232;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-header .item-title-wrap .item-type.type-metabox {
+  background: #fff;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-content {
+  display: none;
+  padding: 20px;
+}
+#setting-screen-announce-items .setting-screen-announce-item.active > .item-content {
+  display: block;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-content .item-content-details {
+  display: none;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-content .item-content-fields.show-details .item-content-details {
+  display: block;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-content .item-content-fields .item-content-show-details {
+  margin: 0 auto 28px auto;
+  padding: 0;
+  text-align: center;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-content .item-content-fields .item-content-show-details .button-item-content-show-details {
+  display: inline-block;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-content .item-content-fields .item-content-show-details .button-item-content-show-details:before {
+  font: 400 20px/1 dashicons;
+  content: "\f140";
+  display: inline-block;
+  text-align: center;
+  float: left;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-content .item-content-fields.show-details .item-content-show-details .button-item-content-show-details:before {
+  content: "\f142";
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-content .form-table {
+  margin: 0 auto 40px auto;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-content .form-table th,
+#setting-screen-announce-items .setting-screen-announce-item .item-content .form-table td {
+  background: #fff;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-content .form-table th {
+  width: 120px;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-content .form-table .designate-detail {
+  display: none;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-content .form-table td.active .designate-detail {
+  display: block;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-content .item-content-hidden-fields {
+  display: none;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-content .item-update {
+  float: right;
+  margin: 0 0 6px 0;
+}
+#setting-screen-announce-items .setting-screen-announce-item .item-content .item-remove {
+  margin: 0 0 6px 0;
+}
