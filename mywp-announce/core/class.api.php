@@ -81,10 +81,6 @@ final class MywpAnnounceApi {
         'color' => '',
         'label' => __( 'Default' , 'mywp-announce' ),
       ),
-      'custom' => array(
-        'color' => '',
-        'label' => __( 'Custom' ),
-      ),
     );
 
     $announce_types = apply_filters( 'mywp_announce_get_announce_types' , $announce_types );
@@ -98,39 +94,12 @@ final class MywpAnnounceApi {
     $announce_screens = array(
       'dashboard' => array(
         'label' => __( 'Dashboard' ),
-        'page_id' => 'index.php',
-      ),
-      'all' => array(
-        'label' => __( 'All admin screens' , 'mywp-announce' ),
-        'page_id' => '',
       ),
     );
 
     $announce_screens = apply_filters( 'mywp_announce_get_announce_screens' , $announce_screens );
 
     return $announce_screens;
-
-  }
-
-  public static function get_announce_screen( $announce_screen_id = false ) {
-
-    $announce_screen_id = strip_tags( $announce_screen_id );
-
-    if( empty( $announce_screen_id ) ) {
-
-      return false;
-
-    }
-
-    $announce_screens = self::get_announce_screens();
-
-    if( isset( $announce_screens[ $announce_screen_id ] ) ) {
-
-      return $announce_screens[ $announce_screen_id ];
-
-    }
-
-    return false;
 
   }
 

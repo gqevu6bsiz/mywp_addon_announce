@@ -58,6 +58,12 @@ final class MywpSettingScreenAnnounceMultisite extends MywpAbstractSettingModule
 
   public static function mywp_ajax_network_manager() {
 
+    if( ! MywpAnnounceApi::is_network_manager() ) {
+
+      return false;
+
+    }
+
     if( ! is_multisite() ) {
 
       return false;
@@ -625,400 +631,400 @@ final class MywpSettingScreenAnnounceMultisite extends MywpAbstractSettingModule
 
   public static function mywp_current_admin_print_footer_scripts() {
 
-    ?>
-    <script>
-    jQuery(document).ready(function($){
+?>
+<script>
+jQuery(document).ready(function($){
 
-      $('#check-latest-version').on('click', function() {
+  $('#check-latest-version').on('click', function() {
 
-        var $version_check_table = $(this).parent().parent().parent().parent();
+    var $version_check_table = $(this).parent().parent().parent().parent();
 
-        $version_check_table.addClass('checking');
+    $version_check_table.addClass('checking');
 
-        PostData = {
-          action: '<?php echo MywpSetting::get_ajax_action_name( self::$id , 'check_latest' ); ?>',
-          <?php echo MywpSetting::get_ajax_action_name( self::$id , 'check_latest' ); ?>: '<?php echo wp_create_nonce( MywpSetting::get_ajax_action_name( self::$id , 'check_latest' ) ); ?>'
-        };
+    PostData = {
+      action: '<?php echo MywpSetting::get_ajax_action_name( self::$id , 'check_latest' ); ?>',
+      <?php echo MywpSetting::get_ajax_action_name( self::$id , 'check_latest' ); ?>: '<?php echo wp_create_nonce( MywpSetting::get_ajax_action_name( self::$id , 'check_latest' ) ); ?>'
+    };
 
-        $.ajax({
-          type: 'post',
-          url: ajaxurl,
-          data: PostData
-        }).done( function( xhr ) {
+    $.ajax({
+      type: 'post',
+      url: ajaxurl,
+      data: PostData
+    }).done( function( xhr ) {
 
-          $version_check_table.removeClass('checking');
+      $version_check_table.removeClass('checking');
 
-          if( typeof xhr !== 'object' || xhr.success === undefined ) {
+      if( typeof xhr !== 'object' || xhr.success === undefined ) {
 
-            alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
+        alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
 
-            return false;
-
-          }
-
-          if( ! xhr.success ) {
-
-            alert( xhr.data.error );
-
-            return false;
-
-          }
-
-          if( xhr.data.is_latest ) {
-
-            $('#check-latest-result').html( xhr.data.message );
-
-            return false;
-
-          }
-
-          $version_check_table.addClass('checking');
-
-          location.reload();
-
-          return true;
-
-        }).fail( function( xhr ) {
-
-          $version_check_table.removeClass('checking');
-
-          alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
-
-          return false;
-
-        });
-
-      });
-
-      $('.sortable-items').sortable({
-        placeholder: 'sortable-placeholder',
-        handle: '.item-header',
-        connectWith: '.sortable-items',
-        distance: 2,
-        stop: function( ev , ui ) {
-
-          var $sorted_item = ui.item;
-
-          $sorted_item.children().find('> .item-title-wrap .spinner').css('visibility', 'visible');
-
-          var item_order = [];
-
-          $(document).find('#setting-screen-announce-items .setting-screen-announce-item').each( function( index , el ) {
-
-            var $item = $(el)
-
-            var post_id = $item.find('> .item-content .id').val();
-
-            var item_order_parent = { item_id: post_id, order: index };
-
-            item_order.push( item_order_parent );
-
-          });
-
-          if( item_order.length == 0 ) {
-
-            return false;
-
-          }
-
-          PostData = {
-            action: '<?php echo MywpSetting::get_ajax_action_name( self::$id , 'update_item_order' ); ?>',
-            <?php echo MywpSetting::get_ajax_action_name( self::$id , 'update_item_order' ); ?>: '<?php echo wp_create_nonce( MywpSetting::get_ajax_action_name( self::$id , 'update_item_order' ) ); ?>',
-            item_order: item_order
-          };
-
-          $.ajax({
-            type: 'post',
-            url: ajaxurl,
-            data: PostData
-          }).done( function( xhr ) {
-
-            $sorted_item.children().find('> .item-title-wrap .spinner').css('visibility', 'hidden');
-
-            if( typeof xhr !== 'object' || xhr.success === undefined ) {
-
-              alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
-
-              return false;
-
-            }
-
-            return true;
-
-          }).fail( function( xhr ) {
-
-            $sorted_item.children().find('> .item-title-wrap .spinner').css('visibility', 'hidden');
-
-            alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
-
-            return false;
-
-          });
-
-        }
-      });
-
-      $('#announce-item-add-button').on('click', function() {
-
-        var $add_item = $(this).parent();
-
-        PostData = {
-          action: '<?php echo MywpSetting::get_ajax_action_name( self::$id , 'add_item' ); ?>',
-          <?php echo MywpSetting::get_ajax_action_name( self::$id , 'add_item' ); ?>: '<?php echo wp_create_nonce( MywpSetting::get_ajax_action_name( self::$id , 'add_item' ) ); ?>'
-        };
-
-        $add_item.find('.spinner').css('visibility', 'visible');
-
-        $.ajax({
-          type: 'post',
-          url: ajaxurl,
-          data: PostData
-        }).done( function( xhr ) {
-
-          $add_item.find('.spinner').css('visibility', 'hidden');
-
-          if( typeof xhr !== 'object' || xhr.success === undefined ) {
-
-            alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
-
-            return false;
-
-          }
-
-          $add_item.find('.spinner').css('visibility', 'visible');
-
-          location.reload();
-
-        }).fail( function( xhr ) {
-
-          $add_item.find('.spinner').css('visibility', 'hidden');
-
-          alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
-
-          return false;
-
-        });
-
-      });
-
-      $(document).on('click', '#setting-screen-announce-items .item-active-toggle', function() {
-
-        $(this).parent().parent().toggleClass('active');
-
-      });
-
-      $(document).on('click', '#setting-screen-announce-items .button-item-content-show-details', function() {
-
-        $(this).parent().parent().toggleClass('show-details');
-
-      });
-
-      $(document).on('click', '#setting-screen-announce-items .item-remove', function() {
-
-        var $item = $(this).parent().parent().parent();
-
-        $item.find('.spinner').css('visibility', 'visible');
-
-        remove_item = $item.find('.item-content-fields .id').val();
-
-        PostData = {
-          action: '<?php echo MywpSetting::get_ajax_action_name( self::$id , 'remove_item' ); ?>',
-          <?php echo MywpSetting::get_ajax_action_name( self::$id , 'remove_item' ); ?>: '<?php echo wp_create_nonce( MywpSetting::get_ajax_action_name( self::$id , 'remove_item' ) ); ?>',
-          remove_item: remove_item
-        };
-
-        $.ajax({
-          type: 'post',
-          url: ajaxurl,
-          data: PostData
-        }).done( function( xhr ) {
-
-          $item.find('.spinner').css('visibility', 'hidden');
-
-          if( typeof xhr !== 'object' || xhr.success === undefined ) {
-
-            alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
-
-            return false;
-
-          }
-
-          $item.slideUp( 'normal' , function() {
-
-            $item.remove();
-
-          });
-
-        }).fail( function( xhr ) {
-
-          $item.find('.spinner').css('visibility', 'hidden');
-
-          alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
-
-          return false;
-
-        });
-
-      });
-
-      $(document).on('click', '#setting-screen-announce-items .item-update', function() {
-
-        var $item = $(this).parent().parent().parent();
-        var $item_content_field = $(this).parent();
-
-        $item_content_field.find('.spinner').css('visibility', 'visible');
-
-        var update_item_id = $item_content_field.find('.id').val();
-
-        var update_item = {
-          item_id: $item_content_field.find('.id').val(),
-          post_title: $item_content_field.find('.post_title').val(),
-          item_type: $item_content_field.find('.item_type').val(),
-          item_screen: $item_content_field.find('.item_screen').val(),
-          post_content: wp.editor.getContent('post_content_' + update_item_id ),
-          item_is_user_roles: $item_content_field.find('.item_is_user_roles').prop('checked'),
-          item_user_roles: $item_content_field.find('.item_user_roles').val(),
-          item_is_date_start: $item_content_field.find('.item_is_date_start').prop('checked'),
-          item_date_start: $item_content_field.find('.item_date_start').val(),
-          item_is_date_end: $item_content_field.find('.item_is_date_end').prop('checked'),
-          item_date_end: $item_content_field.find('.item_date_end').val(),
-          item_hide_sites: $item_content_field.find('.item_hide_sites').val()
-        };
-
-        PostData = {
-          action: '<?php echo MywpSetting::get_ajax_action_name( self::$id , 'update_item' ); ?>',
-          <?php echo MywpSetting::get_ajax_action_name( self::$id , 'update_item' ); ?>: '<?php echo wp_create_nonce( MywpSetting::get_ajax_action_name( self::$id , 'update_item' ) ); ?>',
-          update_item: update_item
-        };
-
-        $.ajax({
-          type: 'post',
-          url: ajaxurl,
-          data: PostData
-        }).done( function( xhr ) {
-
-          $item_content_field.find('.spinner').css('visibility', 'hidden');
-
-          if( typeof xhr !== 'object' || xhr.success === undefined ) {
-
-            alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
-
-            return false;
-
-          }
-
-        }).fail( function( xhr ) {
-
-          $item_content_field.find('.spinner').css('visibility', 'hidden');
-
-          alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
-
-          return false;
-
-        });
-
-      });
-
-      function is_designate_active( $item ) {
-
-        var $item_is_user_roles = $item.find('.item-content-details .form-table .item_is_user_roles');
-
-        var item_is_user_roles = $item_is_user_roles.prop('checked');
-
-        if( item_is_user_roles ) {
-
-          $item_is_user_roles.parent().parent().addClass('active');
-
-        } else {
-
-          $item_is_user_roles.parent().parent().removeClass('active');
-
-        }
-
-        var $item_is_date_start = $item.find('.item-content-details .form-table .item_is_date_start');
-
-        var item_is_date_start = $item_is_date_start.prop('checked');
-
-        if( item_is_date_start ) {
-
-          $item_is_date_start.parent().parent().addClass('active');
-
-        } else {
-
-          $item_is_date_start.parent().parent().removeClass('active');
-
-        }
-
-        var $item_is_date_end = $item.find('.item-content-details .form-table .item_is_date_end');
-
-        var item_is_date_end = $item_is_date_end.prop('checked');
-
-        if( item_is_date_end ) {
-
-          $item_is_date_end.parent().parent().addClass('active');
-
-        } else {
-
-          $item_is_date_end.parent().parent().removeClass('active');
-
-        }
+        return false;
 
       }
 
-      $('.setting-screen-announce-item').each( function( index , el) {
+      if( ! xhr.success ) {
 
-        is_designate_active( $(el) );
+        alert( xhr.data.error );
+
+        return false;
+
+      }
+
+      if( xhr.data.is_latest ) {
+
+        $('#check-latest-result').html( xhr.data.message );
+
+        return false;
+
+      }
+
+      $version_check_table.addClass('checking');
+
+      location.reload();
+
+      return true;
+
+    }).fail( function( xhr ) {
+
+      $version_check_table.removeClass('checking');
+
+      alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
+
+      return false;
+
+    });
+
+  });
+
+  $('.sortable-items').sortable({
+    placeholder: 'sortable-placeholder',
+    handle: '.item-header',
+    connectWith: '.sortable-items',
+    distance: 2,
+    stop: function( ev , ui ) {
+
+      var $sorted_item = ui.item;
+
+      $sorted_item.children().find('> .item-title-wrap .spinner').css('visibility', 'visible');
+
+      var item_order = [];
+
+      $(document).find('#setting-screen-announce-items .setting-screen-announce-item').each( function( index , el ) {
+
+        var $item = $(el)
+
+        var post_id = $item.find('> .item-content .id').val();
+
+        var item_order_parent = { item_id: post_id, order: index };
+
+        item_order.push( item_order_parent );
 
       });
 
-      $(document).on('change', '.item_is_user_roles, .item_is_date_start, .item_is_date_end', function() {
+      if( item_order.length == 0 ) {
 
-        var $item = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent();
+        return false;
 
-        is_designate_active( $item );
+      }
 
-      });
+      PostData = {
+        action: '<?php echo MywpSetting::get_ajax_action_name( self::$id , 'update_item_order' ); ?>',
+        <?php echo MywpSetting::get_ajax_action_name( self::$id , 'update_item_order' ); ?>: '<?php echo wp_create_nonce( MywpSetting::get_ajax_action_name( self::$id , 'update_item_order' ) ); ?>',
+        item_order: item_order
+      };
 
-      $('#remove-cache').on('click', function() {
+      $.ajax({
+        type: 'post',
+        url: ajaxurl,
+        data: PostData
+      }).done( function( xhr ) {
 
-        var $spinner = $(this).parent().find('.spinner').css('visibility', 'visible');
+        $sorted_item.children().find('> .item-title-wrap .spinner').css('visibility', 'hidden');
 
-        PostData = {
-          action: '<?php echo MywpSetting::get_ajax_action_name( self::$id , 'remove_cache' ); ?>',
-          <?php echo MywpSetting::get_ajax_action_name( self::$id , 'remove_cache' ); ?>: '<?php echo wp_create_nonce( MywpSetting::get_ajax_action_name( self::$id , 'remove_cache' ) ); ?>'
-        };
-
-        $.ajax({
-          type: 'post',
-          url: ajaxurl,
-          data: PostData
-        }).done( function( xhr ) {
-
-          $spinner.css('visibility', 'hidden');
-
-          if( typeof xhr !== 'object' || xhr.success === undefined ) {
-
-            alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
-
-            return false;
-
-          }
-
-        }).fail( function( xhr ) {
-
-          $spinner.css('visibility', 'hidden');
+        if( typeof xhr !== 'object' || xhr.success === undefined ) {
 
           alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
 
           return false;
 
-        });
+        }
+
+        return true;
+
+      }).fail( function( xhr ) {
+
+        $sorted_item.children().find('> .item-title-wrap .spinner').css('visibility', 'hidden');
+
+        alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
+
+        return false;
 
       });
 
+    }
+  });
+
+  $('#announce-item-add-button').on('click', function() {
+
+    var $add_item = $(this).parent();
+
+    PostData = {
+      action: '<?php echo MywpSetting::get_ajax_action_name( self::$id , 'add_item' ); ?>',
+      <?php echo MywpSetting::get_ajax_action_name( self::$id , 'add_item' ); ?>: '<?php echo wp_create_nonce( MywpSetting::get_ajax_action_name( self::$id , 'add_item' ) ); ?>'
+    };
+
+    $add_item.find('.spinner').css('visibility', 'visible');
+
+    $.ajax({
+      type: 'post',
+      url: ajaxurl,
+      data: PostData
+    }).done( function( xhr ) {
+
+      $add_item.find('.spinner').css('visibility', 'hidden');
+
+      if( typeof xhr !== 'object' || xhr.success === undefined ) {
+
+        alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
+
+        return false;
+
+      }
+
+      $add_item.find('.spinner').css('visibility', 'visible');
+
+      location.reload();
+
+    }).fail( function( xhr ) {
+
+      $add_item.find('.spinner').css('visibility', 'hidden');
+
+      alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
+
+      return false;
+
     });
-    </script>
-    <?php
+
+  });
+
+  $(document).on('click', '#setting-screen-announce-items .item-active-toggle', function() {
+
+    $(this).parent().parent().toggleClass('active');
+
+  });
+
+  $(document).on('click', '#setting-screen-announce-items .button-item-content-show-details', function() {
+
+    $(this).parent().parent().toggleClass('show-details');
+
+  });
+
+  $(document).on('click', '#setting-screen-announce-items .item-remove', function() {
+
+    var $item = $(this).parent().parent().parent();
+
+    $item.find('.spinner').css('visibility', 'visible');
+
+    remove_item = $item.find('.item-content-fields .id').val();
+
+    PostData = {
+      action: '<?php echo MywpSetting::get_ajax_action_name( self::$id , 'remove_item' ); ?>',
+      <?php echo MywpSetting::get_ajax_action_name( self::$id , 'remove_item' ); ?>: '<?php echo wp_create_nonce( MywpSetting::get_ajax_action_name( self::$id , 'remove_item' ) ); ?>',
+      remove_item: remove_item
+    };
+
+    $.ajax({
+      type: 'post',
+      url: ajaxurl,
+      data: PostData
+    }).done( function( xhr ) {
+
+      $item.find('.spinner').css('visibility', 'hidden');
+
+      if( typeof xhr !== 'object' || xhr.success === undefined ) {
+
+        alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
+
+        return false;
+
+      }
+
+      $item.slideUp( 'normal' , function() {
+
+        $item.remove();
+
+      });
+
+    }).fail( function( xhr ) {
+
+      $item.find('.spinner').css('visibility', 'hidden');
+
+      alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
+
+      return false;
+
+    });
+
+  });
+
+  $(document).on('click', '#setting-screen-announce-items .item-update', function() {
+
+    var $item = $(this).parent().parent().parent();
+    var $item_content_field = $(this).parent();
+
+    $item_content_field.find('.spinner').css('visibility', 'visible');
+
+    var update_item_id = $item_content_field.find('.id').val();
+
+    var update_item = {
+      item_id: $item_content_field.find('.id').val(),
+      post_title: $item_content_field.find('.post_title').val(),
+      item_type: $item_content_field.find('.item_type').val(),
+      item_screen: $item_content_field.find('.item_screen').val(),
+      post_content: wp.editor.getContent('post_content_' + update_item_id ),
+      item_is_user_roles: $item_content_field.find('.item_is_user_roles').prop('checked'),
+      item_user_roles: $item_content_field.find('.item_user_roles').val(),
+      item_is_date_start: $item_content_field.find('.item_is_date_start').prop('checked'),
+      item_date_start: $item_content_field.find('.item_date_start').val(),
+      item_is_date_end: $item_content_field.find('.item_is_date_end').prop('checked'),
+      item_date_end: $item_content_field.find('.item_date_end').val(),
+      item_hide_sites: $item_content_field.find('.item_hide_sites').val()
+    };
+
+    PostData = {
+      action: '<?php echo MywpSetting::get_ajax_action_name( self::$id , 'update_item' ); ?>',
+      <?php echo MywpSetting::get_ajax_action_name( self::$id , 'update_item' ); ?>: '<?php echo wp_create_nonce( MywpSetting::get_ajax_action_name( self::$id , 'update_item' ) ); ?>',
+      update_item: update_item
+    };
+
+    $.ajax({
+      type: 'post',
+      url: ajaxurl,
+      data: PostData
+    }).done( function( xhr ) {
+
+      $item_content_field.find('.spinner').css('visibility', 'hidden');
+
+      if( typeof xhr !== 'object' || xhr.success === undefined ) {
+
+        alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
+
+        return false;
+
+      }
+
+    }).fail( function( xhr ) {
+
+      $item_content_field.find('.spinner').css('visibility', 'hidden');
+
+      alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
+
+      return false;
+
+    });
+
+  });
+
+  function is_designate_active( $item ) {
+
+    var $item_is_user_roles = $item.find('.item-content-details .form-table .item_is_user_roles');
+
+    var item_is_user_roles = $item_is_user_roles.prop('checked');
+
+    if( item_is_user_roles ) {
+
+      $item_is_user_roles.parent().parent().addClass('active');
+
+    } else {
+
+      $item_is_user_roles.parent().parent().removeClass('active');
+
+    }
+
+    var $item_is_date_start = $item.find('.item-content-details .form-table .item_is_date_start');
+
+    var item_is_date_start = $item_is_date_start.prop('checked');
+
+    if( item_is_date_start ) {
+
+      $item_is_date_start.parent().parent().addClass('active');
+
+    } else {
+
+      $item_is_date_start.parent().parent().removeClass('active');
+
+    }
+
+    var $item_is_date_end = $item.find('.item-content-details .form-table .item_is_date_end');
+
+    var item_is_date_end = $item_is_date_end.prop('checked');
+
+    if( item_is_date_end ) {
+
+      $item_is_date_end.parent().parent().addClass('active');
+
+    } else {
+
+      $item_is_date_end.parent().parent().removeClass('active');
+
+    }
+
+  }
+
+  $('.setting-screen-announce-item').each( function( index , el) {
+
+    is_designate_active( $(el) );
+
+  });
+
+  $(document).on('change', '.item_is_user_roles, .item_is_date_start, .item_is_date_end', function() {
+
+    var $item = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent();
+
+    is_designate_active( $item );
+
+  });
+
+  $('#remove-cache').on('click', function() {
+
+    var $spinner = $(this).parent().find('.spinner').css('visibility', 'visible');
+
+    PostData = {
+      action: '<?php echo MywpSetting::get_ajax_action_name( self::$id , 'remove_cache' ); ?>',
+      <?php echo MywpSetting::get_ajax_action_name( self::$id , 'remove_cache' ); ?>: '<?php echo wp_create_nonce( MywpSetting::get_ajax_action_name( self::$id , 'remove_cache' ) ); ?>'
+    };
+
+    $.ajax({
+      type: 'post',
+      url: ajaxurl,
+      data: PostData
+    }).done( function( xhr ) {
+
+      $spinner.css('visibility', 'hidden');
+
+      if( typeof xhr !== 'object' || xhr.success === undefined ) {
+
+        alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
+
+        return false;
+
+      }
+
+    }).fail( function( xhr ) {
+
+      $spinner.css('visibility', 'hidden');
+
+      alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
+
+      return false;
+
+    });
+
+  });
+
+});
+</script>
+<?php
 
   }
 
@@ -1289,7 +1295,7 @@ final class MywpSettingScreenAnnounceMultisite extends MywpAbstractSettingModule
 
       foreach( $announce_types as $type => $announce_type ) {
 
-        printf( '<option value="%s" %s>[%s] %s (%s)</option>' , esc_attr( $type ) , selected( $type , $value , false ) , esc_attr( $type ) , esc_attr( $announce_type['label'] ) , esc_attr( $announce_type['color'] ) );
+        printf( '<option value="%s" %s>[%s] %s</option>' , esc_attr( $type ) , selected( $type , $value , false ) , esc_attr( $announce_type['color'] ) , esc_attr( $announce_type['label'] ) );
 
       }
 

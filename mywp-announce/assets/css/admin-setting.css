@@ -157,7 +157,6 @@
 }
 #setting-screen-announce-items .setting-screen-announce-item .item-content .form-table .designate-detail {
   display: none;
-  margin: 14px 0 0 14px;
 }
 #setting-screen-announce-items .setting-screen-announce-item .item-content .form-table td.active .designate-detail {
   display: block;
