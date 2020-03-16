@@ -8,7 +8,7 @@ Author: gqevu6bsiz
 Author URI: http://gqevu6bsiz.chicappa.jp/
 Text Domain: mywp-announce
 Domain Path: /languages/
-My WP Test working: 1.12
+My WP Test working: 1.13
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
