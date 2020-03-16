@@ -70,7 +70,7 @@ final class MywpControllerModuleAnnounceUpdater extends MywpControllerAbstractMo
       'plugin' => MYWP_ANNOUNCE_PLUGIN_BASENAME,
       'new_version' => $latest,
       'url' => $plugin_info['github'],
-      'package' => false,
+      'package' => '',
       'tested' => false,
       'compatibility' => false,
     );

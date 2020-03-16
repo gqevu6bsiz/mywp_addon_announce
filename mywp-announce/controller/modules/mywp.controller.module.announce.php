@@ -52,7 +52,7 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
     }
 
-    add_action( 'load-index.php' , array( __CLASS__ , 'load_index' ) );
+    add_action( 'current_screen' , array( __CLASS__ , 'current_screen' ) );
 
   }
 
@@ -122,7 +122,7 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
   }
 
-  public static function load_index() {
+  public static function current_screen() {
 
     add_action( 'admin_enqueue_scripts' , array( __CLASS__ , 'admin_enqueue_scripts' ) );
 
@@ -148,6 +148,8 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
   public static function admin_notices() {
 
+    global $pagenow;
+
     if( ! self::is_do_function( __FUNCTION__ ) ) {
 
       return false;
@@ -155,6 +157,38 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
     }
 
     $announces = self::get_announces();
+
+    if( ! empty( $announces ) ) {
+
+      foreach( $announces as $key => $announce ) {
+
+        if( $announce->item_screen === 'all' ) {
+
+          continue;
+
+        }
+
+        $announce_screen = MywpAnnounceApi::get_announce_screen( $announce->item_screen );
+
+        if( empty( $announce_screen ) ) {
+
+          unset( $announces[ $key ] );
+
+          continue;
+
+        }
+
+        if( $pagenow !== $announce_screen['page_id'] ) {
+
+          unset( $announces[ $key ] );
+
+          continue;
+
+        }
+
+      }
+
+    }
 
     if( empty( $announces ) ) {
 
