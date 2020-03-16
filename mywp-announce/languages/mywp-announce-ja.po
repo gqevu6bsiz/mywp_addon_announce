@@ -1,23 +1,23 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: My WP Add-on Announce\n"
-"POT-Creation-Date: 2019-06-20 19:26+0900\n"
-"PO-Revision-Date: 2019-06-20 19:27+0900\n"
+"POT-Creation-Date: 2020-03-16 19:02+0900\n"
+"PO-Revision-Date: 2020-03-16 19:05+0900\n"
 "Last-Translator: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "Language-Team: info@mywpcustomize.com\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.3\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: controller/modules/mywp.controller.module.main.general.php:91
-#: setting/modules/mywp.setting.announce.multisite.php:619
-#: setting/modules/mywp.setting.announce.multisite.php:621
-#: setting/modules/mywp.setting.announce.php:528
-#: setting/modules/mywp.setting.announce.php:530
+#: setting/modules/mywp.setting.announce.multisite.php:613
+#: setting/modules/mywp.setting.announce.multisite.php:615
+#: setting/modules/mywp.setting.announce.php:522
+#: setting/modules/mywp.setting.announce.php:524
 msgid "Documents"
 msgstr "ドキュメント"
 
@@ -40,30 +40,30 @@ msgstr "サーバに接続できませんでした。 時間をおいてもう�
 
 #: controller/modules/mywp.controller.module.updater.php:137
 #: controller/modules/mywp.controller.module.updater.php:153
-#: setting/modules/mywp.setting.announce.multisite.php:659
-#: setting/modules/mywp.setting.announce.multisite.php:691
-#: setting/modules/mywp.setting.announce.multisite.php:746
-#: setting/modules/mywp.setting.announce.multisite.php:758
-#: setting/modules/mywp.setting.announce.multisite.php:788
-#: setting/modules/mywp.setting.announce.multisite.php:802
-#: setting/modules/mywp.setting.announce.multisite.php:846
-#: setting/modules/mywp.setting.announce.multisite.php:862
-#: setting/modules/mywp.setting.announce.multisite.php:910
-#: setting/modules/mywp.setting.announce.multisite.php:920
-#: setting/modules/mywp.setting.announce.multisite.php:1007
-#: setting/modules/mywp.setting.announce.multisite.php:1017
-#: setting/modules/mywp.setting.announce.php:568
-#: setting/modules/mywp.setting.announce.php:600
-#: setting/modules/mywp.setting.announce.php:655
-#: setting/modules/mywp.setting.announce.php:667
-#: setting/modules/mywp.setting.announce.php:697
-#: setting/modules/mywp.setting.announce.php:711
-#: setting/modules/mywp.setting.announce.php:755
-#: setting/modules/mywp.setting.announce.php:771
-#: setting/modules/mywp.setting.announce.php:818
-#: setting/modules/mywp.setting.announce.php:828
-#: setting/modules/mywp.setting.announce.php:915
-#: setting/modules/mywp.setting.announce.php:925
+#: setting/modules/mywp.setting.announce.multisite.php:653
+#: setting/modules/mywp.setting.announce.multisite.php:685
+#: setting/modules/mywp.setting.announce.multisite.php:740
+#: setting/modules/mywp.setting.announce.multisite.php:752
+#: setting/modules/mywp.setting.announce.multisite.php:782
+#: setting/modules/mywp.setting.announce.multisite.php:796
+#: setting/modules/mywp.setting.announce.multisite.php:840
+#: setting/modules/mywp.setting.announce.multisite.php:856
+#: setting/modules/mywp.setting.announce.multisite.php:904
+#: setting/modules/mywp.setting.announce.multisite.php:914
+#: setting/modules/mywp.setting.announce.multisite.php:1001
+#: setting/modules/mywp.setting.announce.multisite.php:1011
+#: setting/modules/mywp.setting.announce.php:562
+#: setting/modules/mywp.setting.announce.php:594
+#: setting/modules/mywp.setting.announce.php:649
+#: setting/modules/mywp.setting.announce.php:661
+#: setting/modules/mywp.setting.announce.php:691
+#: setting/modules/mywp.setting.announce.php:705
+#: setting/modules/mywp.setting.announce.php:749
+#: setting/modules/mywp.setting.announce.php:765
+#: setting/modules/mywp.setting.announce.php:812
+#: setting/modules/mywp.setting.announce.php:822
+#: setting/modules/mywp.setting.announce.php:909
+#: setting/modules/mywp.setting.announce.php:919
 msgid "An error has occurred. Please reload the page and try again."
 msgstr ""
 "予期しないエラーが発生しました。ページをリロードして、もう一度お試しくださ"
@@ -90,8 +90,8 @@ msgid "Green"
 msgstr "緑"
 
 #: core/class.api.php:74
-#: setting/modules/mywp.setting.announce.multisite.php:1244
-#: setting/modules/mywp.setting.announce.php:1140
+#: setting/modules/mywp.setting.announce.multisite.php:1238
+#: setting/modules/mywp.setting.announce.php:1134
 msgid "Update"
 msgstr "更新"
 
@@ -107,9 +107,17 @@ msgstr "エラー"
 msgid "Default"
 msgstr "デフォルト"
 
-#: core/class.api.php:96
+#: core/class.api.php:86
+msgid "Custom"
+msgstr ""
+
+#: core/class.api.php:100
 msgid "Dashboard"
 msgstr "ダッシュボード"
+
+#: core/class.api.php:104
+msgid "All admin screens"
+msgstr "全管理画面"
 
 #: setting/modules/mywp.setting.announce.multisite.php:30
 #: setting/modules/mywp.setting.announce.multisite.php:46
@@ -118,141 +126,141 @@ msgstr "ダッシュボード"
 msgid "Announce"
 msgstr "通知"
 
-#: setting/modules/mywp.setting.announce.multisite.php:116
-#: setting/modules/mywp.setting.announce.multisite.php:606
-#: setting/modules/mywp.setting.announce.php:107
-#: setting/modules/mywp.setting.announce.php:515
+#: setting/modules/mywp.setting.announce.multisite.php:110
+#: setting/modules/mywp.setting.announce.multisite.php:600
+#: setting/modules/mywp.setting.announce.php:101
+#: setting/modules/mywp.setting.announce.php:509
 msgid "Using a latest version."
 msgstr "最新版をご利用中です。"
 
-#: setting/modules/mywp.setting.announce.multisite.php:497
-#: setting/modules/mywp.setting.announce.php:408
+#: setting/modules/mywp.setting.announce.multisite.php:491
+#: setting/modules/mywp.setting.announce.php:402
 msgid "Add Announce"
 msgstr "通知を追加"
 
-#: setting/modules/mywp.setting.announce.multisite.php:514
-#: setting/modules/mywp.setting.announce.php:425
+#: setting/modules/mywp.setting.announce.multisite.php:508
+#: setting/modules/mywp.setting.announce.php:419
 msgid "Announcements"
 msgstr "通知"
 
-#: setting/modules/mywp.setting.announce.multisite.php:516
+#: setting/modules/mywp.setting.announce.multisite.php:510
 msgid "Announce for all sites."
 msgstr "全てのサイトへ通知をします。"
 
-#: setting/modules/mywp.setting.announce.multisite.php:518
-#: setting/modules/mywp.setting.announce.php:427
+#: setting/modules/mywp.setting.announce.multisite.php:512
+#: setting/modules/mywp.setting.announce.php:421
 msgid "Drag announce items to edit and reorder announces."
 msgstr "通知アイテムをドラッグで順番の変更ができます。"
 
-#: setting/modules/mywp.setting.announce.multisite.php:551
-#: setting/modules/mywp.setting.announce.php:460
+#: setting/modules/mywp.setting.announce.multisite.php:545
+#: setting/modules/mywp.setting.announce.php:454
 msgid "Cache Timeout"
 msgstr "キャッシュタイムアウト"
 
-#: setting/modules/mywp.setting.announce.multisite.php:555
-#: setting/modules/mywp.setting.announce.php:464
+#: setting/modules/mywp.setting.announce.multisite.php:549
+#: setting/modules/mywp.setting.announce.php:458
 msgid "Minute"
 msgstr "分"
 
-#: setting/modules/mywp.setting.announce.multisite.php:557
-#: setting/modules/mywp.setting.announce.php:466
+#: setting/modules/mywp.setting.announce.multisite.php:551
+#: setting/modules/mywp.setting.announce.php:460
 msgid "Remove Cache"
 msgstr "キャッシュを削除"
 
-#: setting/modules/mywp.setting.announce.multisite.php:598
-#: setting/modules/mywp.setting.announce.php:507
+#: setting/modules/mywp.setting.announce.multisite.php:592
+#: setting/modules/mywp.setting.announce.php:501
 msgid "Plugin info"
 msgstr "プラグイン情報"
 
-#: setting/modules/mywp.setting.announce.multisite.php:602
-#: setting/modules/mywp.setting.announce.php:511
+#: setting/modules/mywp.setting.announce.multisite.php:596
+#: setting/modules/mywp.setting.announce.php:505
 #, php-format
 msgid "Version %s"
 msgstr "バージョン %s"
 
-#: setting/modules/mywp.setting.announce.multisite.php:605
-#: setting/modules/mywp.setting.announce.php:514
+#: setting/modules/mywp.setting.announce.multisite.php:599
+#: setting/modules/mywp.setting.announce.php:508
 #, php-format
 msgid "Get Version %s"
 msgstr "バージョン %s を取得"
 
-#: setting/modules/mywp.setting.announce.multisite.php:611
-#: setting/modules/mywp.setting.announce.php:520
+#: setting/modules/mywp.setting.announce.multisite.php:605
+#: setting/modules/mywp.setting.announce.php:514
 msgid "Check latest"
 msgstr "最新版チェック"
 
-#: setting/modules/mywp.setting.announce.multisite.php:613
-#: setting/modules/mywp.setting.announce.php:522
+#: setting/modules/mywp.setting.announce.multisite.php:607
+#: setting/modules/mywp.setting.announce.php:516
 msgid "Check latest version"
 msgstr "最新版をチェックする"
 
-#: setting/modules/mywp.setting.announce.multisite.php:1177
-#: setting/modules/mywp.setting.announce.multisite.php:1286
-#: setting/modules/mywp.setting.announce.php:1079
-#: setting/modules/mywp.setting.announce.php:1180
+#: setting/modules/mywp.setting.announce.multisite.php:1171
+#: setting/modules/mywp.setting.announce.multisite.php:1280
+#: setting/modules/mywp.setting.announce.php:1073
+#: setting/modules/mywp.setting.announce.php:1174
 msgid "Announce Title"
 msgstr "通知タイトル"
 
-#: setting/modules/mywp.setting.announce.multisite.php:1183
-#: setting/modules/mywp.setting.announce.php:1085
+#: setting/modules/mywp.setting.announce.multisite.php:1177
+#: setting/modules/mywp.setting.announce.php:1079
 msgid "Announce Type"
 msgstr "通知タイプ"
 
-#: setting/modules/mywp.setting.announce.multisite.php:1189
-#: setting/modules/mywp.setting.announce.php:1091
+#: setting/modules/mywp.setting.announce.multisite.php:1183
+#: setting/modules/mywp.setting.announce.php:1085
 msgid "Announce Screen"
 msgstr "通知画面"
 
-#: setting/modules/mywp.setting.announce.multisite.php:1195
-#: setting/modules/mywp.setting.announce.php:1097
+#: setting/modules/mywp.setting.announce.multisite.php:1189
+#: setting/modules/mywp.setting.announce.php:1091
 msgid "Announce Content"
 msgstr "通知内容"
 
-#: setting/modules/mywp.setting.announce.multisite.php:1201
+#: setting/modules/mywp.setting.announce.multisite.php:1195
 msgid "Announce Hide Sites"
 msgstr "通知を表示しないサイト"
 
-#: setting/modules/mywp.setting.announce.multisite.php:1209
-#: setting/modules/mywp.setting.announce.php:1105
+#: setting/modules/mywp.setting.announce.multisite.php:1203
+#: setting/modules/mywp.setting.announce.php:1099
 msgid "More Details"
 msgstr "詳細"
 
-#: setting/modules/mywp.setting.announce.multisite.php:1216
-#: setting/modules/mywp.setting.announce.php:1112
+#: setting/modules/mywp.setting.announce.multisite.php:1210
+#: setting/modules/mywp.setting.announce.php:1106
 msgid "User Roles"
 msgstr "ユーザー権限グループ"
 
-#: setting/modules/mywp.setting.announce.multisite.php:1223
-#: setting/modules/mywp.setting.announce.php:1119
+#: setting/modules/mywp.setting.announce.multisite.php:1217
+#: setting/modules/mywp.setting.announce.php:1113
 msgid "Start Date"
 msgstr "開始日時"
 
-#: setting/modules/mywp.setting.announce.multisite.php:1230
-#: setting/modules/mywp.setting.announce.php:1126
+#: setting/modules/mywp.setting.announce.multisite.php:1224
+#: setting/modules/mywp.setting.announce.php:1120
 msgid "End Date"
 msgstr "終了日時"
 
-#: setting/modules/mywp.setting.announce.multisite.php:1246
-#: setting/modules/mywp.setting.announce.php:1142
+#: setting/modules/mywp.setting.announce.multisite.php:1240
+#: setting/modules/mywp.setting.announce.php:1136
 msgid "Remove"
 msgstr "削除"
 
-#: setting/modules/mywp.setting.announce.multisite.php:1322
-#: setting/modules/mywp.setting.announce.multisite.php:1356
-#: setting/modules/mywp.setting.announce.multisite.php:1374
-#: setting/modules/mywp.setting.announce.php:1216
-#: setting/modules/mywp.setting.announce.php:1250
-#: setting/modules/mywp.setting.announce.php:1268
+#: setting/modules/mywp.setting.announce.multisite.php:1316
+#: setting/modules/mywp.setting.announce.multisite.php:1350
+#: setting/modules/mywp.setting.announce.multisite.php:1368
+#: setting/modules/mywp.setting.announce.php:1210
+#: setting/modules/mywp.setting.announce.php:1244
+#: setting/modules/mywp.setting.announce.php:1262
 msgid "Designate"
 msgstr "指定する"
 
-#: setting/modules/mywp.setting.announce.multisite.php:1388
+#: setting/modules/mywp.setting.announce.multisite.php:1382
 msgid "Please enter the Blogs ID with comma if you want hide announce."
-msgstr "カンマ付きでブログIDを入力してくださ。"
+msgstr "カンマ付きでブログIDを入力してください。"
 
-#: setting/modules/mywp.setting.announce.multisite.php:1410
+#: setting/modules/mywp.setting.announce.multisite.php:1404
 msgid "Not found Blog ID"
-msgstr "ブログIDが見つかりませんでした."
+msgstr "ブログIDが見つかりませんでした"
 
 #. Description of the plugin/theme
 msgid "My WP Add-on Announce is announcement to the admin Dashboard for users."
