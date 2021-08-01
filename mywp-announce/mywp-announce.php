@@ -3,12 +3,12 @@
 Plugin Name: My WP Add-on Announce
 Plugin URI: https://mywpcustomize.com/
 Description: My WP Add-on Announce is announcement to the admin Dashboard for users.
-Version: 1.1
+Version: 1.2.0
 Author: gqevu6bsiz
 Author URI: http://gqevu6bsiz.chicappa.jp/
 Text Domain: mywp-announce
 Domain Path: /languages/
-My WP Test working: 1.13
+My WP Test working: 1.18
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,26 +18,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'MywpAnnounce' ) ) :
 
 final class MywpAnnounce {
-
-  private static $instance;
-
-  private function __construct() {}
-
-  public static function get_instance() {
-
-    if ( !isset( self::$instance ) ) {
-
-      self::$instance = new self();
-
-    }
-
-    return self::$instance;
-
-  }
-
-  private function __clone() {}
-
-  private function __wakeup() {}
 
   public static function init() {
 
@@ -51,7 +31,7 @@ final class MywpAnnounce {
   private static function define_constants() {
 
     define( 'MYWP_ANNOUNCE_NAME' , 'My WP Add-on Announce' );
-    define( 'MYWP_ANNOUNCE_VERSION' , '1.1' );
+    define( 'MYWP_ANNOUNCE_VERSION' , '1.2.0' );
     define( 'MYWP_ANNOUNCE_PLUGIN_FILE' , __FILE__ );
     define( 'MYWP_ANNOUNCE_PLUGIN_BASENAME' , plugin_basename( MYWP_ANNOUNCE_PLUGIN_FILE ) );
     define( 'MYWP_ANNOUNCE_PLUGIN_DIRNAME' , dirname( MYWP_ANNOUNCE_PLUGIN_BASENAME ) );
