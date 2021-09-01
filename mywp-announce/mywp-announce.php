@@ -3,7 +3,7 @@
 Plugin Name: My WP Add-on Announce
 Plugin URI: https://mywpcustomize.com/
 Description: My WP Add-on Announce is announcement to the admin Dashboard for users.
-Version: 1.2.0
+Version: 1.3.0
 Author: gqevu6bsiz
 Author URI: http://gqevu6bsiz.chicappa.jp/
 Text Domain: mywp-announce
@@ -31,7 +31,7 @@ final class MywpAnnounce {
   private static function define_constants() {
 
     define( 'MYWP_ANNOUNCE_NAME' , 'My WP Add-on Announce' );
-    define( 'MYWP_ANNOUNCE_VERSION' , '1.2.0' );
+    define( 'MYWP_ANNOUNCE_VERSION' , '1.3.0' );
     define( 'MYWP_ANNOUNCE_PLUGIN_FILE' , __FILE__ );
     define( 'MYWP_ANNOUNCE_PLUGIN_BASENAME' , plugin_basename( MYWP_ANNOUNCE_PLUGIN_FILE ) );
     define( 'MYWP_ANNOUNCE_PLUGIN_DIRNAME' , dirname( MYWP_ANNOUNCE_PLUGIN_BASENAME ) );
@@ -97,6 +97,10 @@ final class MywpAnnounce {
   }
 
   public static function mywp_setting_plugins_loaded_include_modules( $includes ) {
+
+    $dir = MYWP_ANNOUNCE_PLUGIN_PATH . 'setting/';
+
+    require_once( $dir . 'abstract.setting.announce.module.php' );
 
     $dir = MYWP_ANNOUNCE_PLUGIN_PATH . 'setting/modules/';
 

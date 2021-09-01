@@ -14,7 +14,7 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
   static protected $id = 'announce';
 
-  private static $announces = false;
+  private static $all_announces = array();
 
   public static function mywp_controller_initial_data( $initial_data ) {
 
@@ -56,13 +56,51 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
   }
 
-  private static function get_announces() {
+  private static function get_all_announces() {
 
-    if( ! empty( self::$announces ) ) {
+    if( ! empty( self::$all_announces ) ) {
 
-      return self::$announces;
+      return self::$all_announces;
 
     }
+
+    $all_announces = array();
+
+    $announces = self::get_announces();
+
+    if( ! empty( $announces ) ) {
+
+      foreach( $announces as $announce ) {
+
+        $all_announces[] = $announce;
+
+      }
+
+    }
+
+    if( is_multisite() ) {
+
+      $multisite_announces = MywpControllerModuleAnnounceMultisite::get_announces();
+
+      if( ! empty( $multisite_announces ) ) {
+
+        foreach( $multisite_announces as $announce ) {
+
+          $all_announces[] = $announce;
+
+        }
+
+      }
+
+    }
+
+    self::$all_announces = $all_announces;
+
+    return $all_announces;
+
+  }
+
+  private static function get_announces() {
 
     $setting_data = self::get_setting_data();
 
@@ -82,9 +120,7 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
       if( ! empty( $transient_announces ) ) {
 
-        self::$announces = $transient_announces;
-
-        return self::$announces;
+        return $transient_announces;
 
       }
 
@@ -104,15 +140,13 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
     $announces = apply_filters( 'mywp_controller_announce_get_announce' , $posts );
 
-    self::$announces = $announces;
-
     if( ! empty( $timeout_min ) && ! empty( $announces ) ) {
 
-      $announces_strlen = strlen( maybe_serialize( self::$announces ) );
+      $announces_strlen = strlen( maybe_serialize( $announces ) );
 
       if( $announces_strlen < MywpHelper::get_max_allowed_packet_size() ) {
 
-        $mywp_transient->update_data( self::$announces , $timeout_min * MINUTE_IN_SECONDS );
+        $mywp_transient->update_data( $announces , $timeout_min * MINUTE_IN_SECONDS );
 
       }
 
@@ -132,7 +166,7 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
   public static function admin_enqueue_scripts() {
 
-    $announces = self::get_announces();
+    $announces = self::get_all_announces();
 
     if( empty( $announces ) ) {
 
@@ -156,7 +190,7 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
     }
 
-    $announces = self::get_announces();
+    $announces = self::get_all_announces();
 
     if( ! empty( $announces ) ) {
 
@@ -296,7 +330,69 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
     }
 
-    MywpAnnounceApi::print_announce( $item );
+    if( ! empty( $item->item_hide_sites ) ) {
+
+      if( strpos( $item->item_hide_sites , ',' ) === false ) {
+
+        $item_hide_sites = array( intval( $item->item_hide_sites ) );
+
+      } else {
+
+        $item_hide_sites = explode( ',' , $item->item_hide_sites );
+
+        foreach( $item_hide_sites as $key => $val ) {
+
+          if( empty( $val ) ) {
+
+            unset( $item_hide_sites[ $key ] );
+
+          } else {
+
+            $item_hide_sites[ $key ] = intval( $val );
+
+          }
+
+        }
+
+      }
+
+      $current_blog_id = get_current_blog_id();
+
+      if( in_array( $current_blog_id , $item_hide_sites , true ) ) {
+
+        return false;
+
+      }
+
+    }
+
+    $item->post_title = do_shortcode( $item->post_title );
+
+    add_filter( 'mywp_controller_announce_print_announce_item_content' , 'wptexturize' );
+    add_filter( 'mywp_controller_announce_print_announce_item_content' , 'convert_smilies' , 20 );
+    add_filter( 'mywp_controller_announce_print_announce_item_content' , 'convert_chars' );
+    add_filter( 'mywp_controller_announce_print_announce_item_content' , 'wpautop' );
+    add_filter( 'mywp_controller_announce_print_announce_item_content' , 'shortcode_unautop' );
+    add_filter( 'mywp_controller_announce_print_announce_item_content' , 'prepend_attachment' );
+    add_filter( 'mywp_controller_announce_print_announce_item_content' , 'do_shortcode' , 11 );
+
+    $announce_content = apply_filters( 'mywp_controller_announce_print_announce_item_content' , $item->post_content );
+
+    printf( '<div class="mywp-announce updated %s" id="announce-%d">' , esc_attr( $item->item_type ) , esc_attr( $item->ID ) );
+
+    if( ! empty( $item->post_title ) ) {
+
+      printf( '<p class="title">%s</p>' , $item->post_title );
+
+    }
+
+    if( ! empty( $announce_content ) ) {
+
+      echo $announce_content;
+
+    }
+
+    echo '</div>';
 
   }
 

@@ -112,11 +112,7 @@ final class MywpPostTypeModuleAnnounceMultisite extends MywpPostTypeAbstractModu
 
       if( $mywp_post->item_hide_sites ) {
 
-        foreach( $mywp_post->item_hide_sites as $site ) {
-
-          printf( '[%d]' , $site['id'] );
-
-        }
+        echo $mywp_post->item_hide_sites;
 
       }
 

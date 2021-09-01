@@ -87,6 +87,20 @@
   background: #bbb;
   display: inline-block;
 }
+#setting-screen-announce-items .setting-screen-announce-item .item-header .item-title-wrap .icons .dashicons {
+  color: #c39d70;
+  margin-top: 10px;
+  display: none;
+}
+#setting-screen-announce-items .setting-screen-announce-item.active-user-roles .item-header .item-title-wrap .icons .dashicons-admin-users {
+  display: inline-block;
+}
+#setting-screen-announce-items .setting-screen-announce-item.active-date .item-header .item-title-wrap .icons .dashicons-clock {
+  display: inline-block;
+}
+#setting-screen-announce-items .setting-screen-announce-item.active-hide-sites .item-header .item-title-wrap .icons .dashicons-networking {
+  display: inline-block;
+}
 #setting-screen-announce-items .setting-screen-announce-item .item-header .item-title-wrap .item-title {}
 #setting-screen-announce-items .setting-screen-announce-item .item-header .item-title-wrap .item-type {
   padding: 0;

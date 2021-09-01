@@ -126,35 +126,35 @@ final class MywpAnnounceApi {
 
   }
 
-  public static function print_announce( $item ) {
+  public static function is_switch_to_blog() {
 
-    $item->post_title = do_shortcode( $item->post_title );
+    $is_switch_to_blog = false;
 
-    add_filter( 'mywp_announce_print_announce_content' , 'wptexturize' );
-    add_filter( 'mywp_announce_print_announce_content' , 'convert_smilies' , 20 );
-    add_filter( 'mywp_announce_print_announce_content' , 'convert_chars' );
-    add_filter( 'mywp_announce_print_announce_content' , 'wpautop' );
-    add_filter( 'mywp_announce_print_announce_content' , 'shortcode_unautop' );
-    add_filter( 'mywp_announce_print_announce_content' , 'prepend_attachment' );
-    add_filter( 'mywp_announce_print_announce_content' , 'do_shortcode' , 11 );
+    if( ! is_multisite() ) {
 
-    $announce_content = apply_filters( 'mywp_announce_print_announce_content' , $item->post_content );
-
-    printf( '<div class="mywp-announce updated %s" id="announce-%d">' , esc_attr( $item->item_type ) , esc_attr( $item->ID ) );
-
-    if( ! empty( $item->post_title ) ) {
-
-      printf( '<p class="title">%s</p>' , $item->post_title );
+      return $is_switch_to_blog;
 
     }
 
-    if( ! empty( $announce_content ) ) {
+    if( is_main_site() ) {
 
-      echo $announce_content;
+      return $is_switch_to_blog;
 
     }
 
-    echo '</div>';
+    $main_site_id = get_main_site_id();
+
+    if( empty( $main_site_id ) ) {
+
+      return $is_switch_to_blog;
+
+    }
+
+    switch_to_blog( $main_site_id );
+
+    $is_switch_to_blog = true;
+
+    return $is_switch_to_blog;
 
   }
 
