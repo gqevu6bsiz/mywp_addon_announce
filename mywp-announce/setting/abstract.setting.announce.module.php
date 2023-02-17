@@ -93,6 +93,7 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
     $add_meta_data = array(
       'item_type' => 'default',
       'item_screen' => 'dashboard',
+      'item_add_class' => '',
       'item_is_user_roles' => 1,
       'item_user_roles' => array( 'administrator' ),
       'item_is_date_start' => false,
@@ -212,13 +213,13 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
 
       $meta_key = wp_unslash( strip_tags( $meta_key ) );
 
-      if( in_array( $meta_key , array( 'item_type' , 'item_screen' , 'item_date_start' , 'item_date_end' ) ) ) {
+      if( in_array( $meta_key , array( 'item_type' , 'item_screen' , 'item_add_class' , 'item_date_start' , 'item_date_end' ) , true ) ) {
 
         $meta_value = strip_tags( $meta_value );
 
         $meta_value = trim( $meta_value );
 
-      } elseif( in_array( $meta_key , array( 'item_is_user_roles' , 'item_is_date_start' , 'item_is_date_end' ) ) ) {
+      } elseif( in_array( $meta_key , array( 'item_is_user_roles' , 'item_is_date_start' , 'item_is_date_end' ) , true ) ) {
 
         $meta_value = strip_tags( $meta_value );
 
@@ -234,7 +235,7 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
 
         }
 
-      } elseif( in_array( $meta_key , array( 'item_user_roles' ) ) ) {
+      } elseif( in_array( $meta_key , array( 'item_user_roles' ) , true ) ) {
 
         if( ! empty( $meta_value ) ) {
 
@@ -246,7 +247,7 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
 
         }
 
-      } elseif( in_array( $meta_key , array( 'item_hide_sites' ) ) ) {
+      } elseif( in_array( $meta_key , array( 'item_hide_sites' ) , true ) ) {
 
         if( ! empty( $meta_value ) ) {
 
@@ -575,13 +576,13 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
 
       $('#check-latest-version').on('click', function() {
 
-        var $version_check_table = $(this).parent().parent().parent().parent();
+        let $version_check_table = $(this).parent().parent().parent().parent();
 
         $version_check_table.addClass('checking');
 
         PostData = {
-          action: '<?php echo MywpSetting::get_ajax_action_name( static::$id , 'check_latest' ); ?>',
-          <?php echo MywpSetting::get_ajax_action_name( static::$id , 'check_latest' ); ?>: '<?php echo wp_create_nonce( MywpSetting::get_ajax_action_name( static::$id , 'check_latest' ) ); ?>'
+          action: '<?php echo esc_js( MywpSetting::get_ajax_action_name( static::$id , 'check_latest' ) ); ?>',
+          <?php echo esc_js( MywpSetting::get_ajax_action_name( static::$id , 'check_latest' ) ); ?>: '<?php echo esc_js( wp_create_nonce( MywpSetting::get_ajax_action_name( static::$id , 'check_latest' ) ) ); ?>'
         };
 
         $.ajax({
@@ -641,19 +642,19 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
         distance: 2,
         stop: function( ev , ui ) {
 
-          var $sorted_item = ui.item;
+          let $sorted_item = ui.item;
 
           $sorted_item.children().find('> .item-title-wrap .spinner').css('visibility', 'visible');
 
-          var item_order = [];
+          let item_order = [];
 
           $(document).find('#setting-screen-announce-items .setting-screen-announce-item').each( function( index , el ) {
 
-            var $item = $(el)
+            let $item = $(el)
 
-            var post_id = $item.find('> .item-content .id').val();
+            let post_id = $item.find('> .item-content .id').val();
 
-            var item_order_parent = { item_id: post_id, order: index };
+            let item_order_parent = { item_id: post_id, order: index };
 
             item_order.push( item_order_parent );
 
@@ -666,8 +667,8 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
           }
 
           PostData = {
-            action: '<?php echo MywpSetting::get_ajax_action_name( static::$id , 'update_item_order' ); ?>',
-            <?php echo MywpSetting::get_ajax_action_name( static::$id , 'update_item_order' ); ?>: '<?php echo wp_create_nonce( MywpSetting::get_ajax_action_name( static::$id , 'update_item_order' ) ); ?>',
+            action: '<?php echo esc_js( MywpSetting::get_ajax_action_name( static::$id , 'update_item_order' ) ); ?>',
+            <?php echo esc_js( MywpSetting::get_ajax_action_name( static::$id , 'update_item_order' ) ); ?>: '<?php echo esc_js( wp_create_nonce( MywpSetting::get_ajax_action_name( static::$id , 'update_item_order' ) ) ); ?>',
             item_order: item_order
           };
 
@@ -704,11 +705,11 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
 
       $('#announce-item-add-button').on('click', function() {
 
-        var $add_item = $(this).parent();
+        let $add_item = $(this).parent();
 
         PostData = {
-          action: '<?php echo MywpSetting::get_ajax_action_name( static::$id , 'add_item' ); ?>',
-          <?php echo MywpSetting::get_ajax_action_name( static::$id , 'add_item' ); ?>: '<?php echo wp_create_nonce( MywpSetting::get_ajax_action_name( static::$id , 'add_item' ) ); ?>'
+          action: '<?php echo esc_js( MywpSetting::get_ajax_action_name( static::$id , 'add_item' ) ); ?>',
+          <?php echo esc_js( MywpSetting::get_ajax_action_name( static::$id , 'add_item' ) ); ?>: '<?php echo esc_js( wp_create_nonce( MywpSetting::get_ajax_action_name( static::$id , 'add_item' ) ) ); ?>'
         };
 
         $add_item.find('.spinner').css('visibility', 'visible');
@@ -718,6 +719,8 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
           url: ajaxurl,
           data: PostData
         }).done( function( xhr ) {
+
+          $add_item.find('.spinner').css('visibility', 'hidden');
 
           if( typeof xhr !== 'object' || xhr.success === undefined ) {
 
@@ -733,13 +736,11 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
 
         }).fail( function( xhr ) {
 
+          $add_item.find('.spinner').css('visibility', 'hidden');
+
           alert( '<?php _e( 'An error has occurred. Please reload the page and try again.' ); ?>' );
 
           return false;
-
-        }).always( function( xhr ) {
-
-          $add_item.find('.spinner').css('visibility', 'hidden');
 
         });
 
@@ -759,15 +760,15 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
 
       $(document).on('click', '#setting-screen-announce-items .item-remove', function() {
 
-        var $item = $(this).parent().parent().parent();
+        let $item = $(this).parent().parent().parent();
 
         $item.find('.spinner').css('visibility', 'visible');
 
         remove_item = $item.find('.item-content-fields .id').val();
 
         PostData = {
-          action: '<?php echo MywpSetting::get_ajax_action_name( static::$id , 'remove_item' ); ?>',
-          <?php echo MywpSetting::get_ajax_action_name( static::$id , 'remove_item' ); ?>: '<?php echo wp_create_nonce( MywpSetting::get_ajax_action_name( static::$id , 'remove_item' ) ); ?>',
+          action: '<?php echo esc_js( MywpSetting::get_ajax_action_name( static::$id , 'remove_item' ) ); ?>',
+          <?php echo esc_js( MywpSetting::get_ajax_action_name( static::$id , 'remove_item' ) ); ?>: '<?php echo esc_js( wp_create_nonce( MywpSetting::get_ajax_action_name( static::$id , 'remove_item' ) ) ); ?>',
           remove_item: remove_item
         };
 
@@ -807,18 +808,19 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
 
       $(document).on('click', '#setting-screen-announce-items .item-update', function() {
 
-        var $item = $(this).parent().parent().parent();
-        var $item_content_field = $(this).parent();
+        let $item = $(this).parent().parent().parent();
+        let $item_content_field = $(this).parent();
 
         $item_content_field.find('.spinner').css('visibility', 'visible');
 
-        var update_item_id = $item_content_field.find('.id').val();
+        let update_item_id = $item_content_field.find('.id').val();
 
-        var update_item = {
+        let update_item = {
           item_id: $item_content_field.find('.id').val(),
           post_title: $item_content_field.find('.post_title').val(),
           item_type: $item_content_field.find('.item_type').val(),
           item_screen: $item_content_field.find('.item_screen').val(),
+          item_add_class: $item_content_field.find('.item_add_class').val(),
           post_content: wp.editor.getContent('post_content_' + update_item_id ),
           item_is_user_roles: $item_content_field.find('.item_is_user_roles').prop('checked'),
           item_user_roles: $item_content_field.find('.item_user_roles').val(),
@@ -830,8 +832,8 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
         };
 
         PostData = {
-          action: '<?php echo MywpSetting::get_ajax_action_name( static::$id , 'update_item' ); ?>',
-          <?php echo MywpSetting::get_ajax_action_name( static::$id , 'update_item' ); ?>: '<?php echo wp_create_nonce( MywpSetting::get_ajax_action_name( static::$id , 'update_item' ) ); ?>',
+          action: '<?php echo esc_js( MywpSetting::get_ajax_action_name( static::$id , 'update_item' ) ); ?>',
+          <?php echo esc_js( MywpSetting::get_ajax_action_name( static::$id , 'update_item' ) ); ?>: '<?php echo esc_js( wp_create_nonce( MywpSetting::get_ajax_action_name( static::$id , 'update_item' ) ) ); ?>',
           update_item: update_item
         };
 
@@ -867,9 +869,9 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
 
         $item.removeClass('active-user-roles');
 
-        var $item_is_user_roles = $item.find('.item-content-details .form-table .item_is_user_roles');
+        let $item_is_user_roles = $item.find('.item-content-details .form-table .item_is_user_roles');
 
-        var item_is_user_roles = $item_is_user_roles.prop('checked');
+        let item_is_user_roles = $item_is_user_roles.prop('checked');
 
         if( item_is_user_roles ) {
 
@@ -885,9 +887,9 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
 
         $item.removeClass('active-date');
 
-        var $item_is_date_start = $item.find('.item-content-details .form-table .item_is_date_start');
+        let $item_is_date_start = $item.find('.item-content-details .form-table .item_is_date_start');
 
-        var item_is_date_start = $item_is_date_start.prop('checked');
+        let item_is_date_start = $item_is_date_start.prop('checked');
 
         if( item_is_date_start ) {
 
@@ -901,9 +903,9 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
 
         }
 
-        var $item_is_date_end = $item.find('.item-content-details .form-table .item_is_date_end');
+        let $item_is_date_end = $item.find('.item-content-details .form-table .item_is_date_end');
 
-        var item_is_date_end = $item_is_date_end.prop('checked');
+        let item_is_date_end = $item_is_date_end.prop('checked');
 
         if( item_is_date_end ) {
 
@@ -919,9 +921,9 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
 
         $item.removeClass('active-hide-sites');
 
-        var $item_is_hide_sites = $item.find('.hide-sites-setting .item_hide_sites');
+        let $item_is_hide_sites = $item.find('.hide-sites-setting .item_hide_sites');
 
-        var item_hide_sites = $item_is_hide_sites.val();
+        let item_hide_sites = $item_is_hide_sites.val();
 
         if( item_hide_sites ) {
 
@@ -939,7 +941,7 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
 
       $(document).on('change', '.item_is_user_roles, .item_is_date_start, .item_is_date_end', function() {
 
-        var $item = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent();
+        let $item = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent();
 
         is_designate_active( $item );
 
@@ -947,11 +949,11 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
 
       $('#remove-cache').on('click', function() {
 
-        var $spinner = $(this).parent().find('.spinner').css('visibility', 'visible');
+        let $spinner = $(this).parent().find('.spinner').css('visibility', 'visible');
 
         PostData = {
-          action: '<?php echo MywpSetting::get_ajax_action_name( static::$id , 'remove_cache' ); ?>',
-          <?php echo MywpSetting::get_ajax_action_name( static::$id , 'remove_cache' ); ?>: '<?php echo wp_create_nonce( MywpSetting::get_ajax_action_name( static::$id , 'remove_cache' ) ); ?>'
+          action: '<?php echo esc_js( MywpSetting::get_ajax_action_name( static::$id , 'remove_cache' ) ); ?>',
+          <?php echo esc_js( MywpSetting::get_ajax_action_name( static::$id , 'remove_cache' ) ); ?>: '<?php echo esc_js( wp_create_nonce( MywpSetting::get_ajax_action_name( static::$id , 'remove_cache' ) ) ); ?>'
         };
 
         $.ajax({
@@ -1121,6 +1123,12 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
           <table class="form-table">
             <tbody>
               <tr>
+                <th><?php _e( 'Add Class' , 'mywp-announce' ); ?></th>
+                <td>
+                  <?php static::print_item_content_field( 'item_add_class' , $item->item_add_class , $item ); ?>
+                </td>
+              </tr>
+              <tr>
                 <th><?php _e( 'User Roles' ); ?></th>
                 <td>
                   <?php static::print_item_content_field( 'item_is_user_roles' , $item->item_is_user_roles , $item ); ?>
@@ -1175,6 +1183,8 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
 
     $announce_types = MywpAnnounceApi::get_announce_types();
 
+    $announce_screen_groups = MywpAnnounceApi::get_announce_screen_groups();
+
     $announce_screens = MywpAnnounceApi::get_announce_screens();
 
     $field_name = strip_tags( $field_name );
@@ -1211,13 +1221,43 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
 
       echo '<select class="item_screen">';
 
-      foreach( $announce_screens as $screen => $announce_screen ) {
+      foreach( $announce_screen_groups as $announce_screen_group_key => $announce_screen_group ) {
 
-        printf( '<option value="%s" %s>%s</option>' , esc_attr( $screen ) , selected( $screen , $value , false ) , esc_attr( $announce_screen['label'] ) );
+        if( empty( $announce_screen_group_key ) ) {
+
+          continue;
+
+        }
+
+        printf( '<optgroup label="%s" data-announce_screen_group_key="%s">' , esc_attr( $announce_screen_group['label'] ) , esc_attr( $announce_screen_group_key ) );
+
+        foreach( $announce_screens as $screen_key => $announce_screen ) {
+
+          if( empty( $screen_key ) ) {
+
+            continue;
+
+          }
+
+          if( $announce_screen['group'] !== $announce_screen_group_key ) {
+
+            continue;
+
+          }
+
+          printf( '<option value="%s" %s>%s</option>' , esc_attr( $screen_key ) , selected( $screen_key , $value , false ) , esc_attr( $announce_screen['label'] ) );
+
+        }
+
+        echo '</optgroup>';
 
       }
 
       echo '</select>';
+
+    } elseif( $field_name === 'item_add_class' ) {
+
+      printf( '<input type="text" class="item_add_class large-text" value="%s" placeholder="%s" />' , esc_attr( $value ) , esc_attr( 'custom class value' ) );
 
     } elseif( $field_name === 'item_is_user_roles' ) {
 
@@ -1239,7 +1279,7 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
 
         $selected = false;
 
-        if( ! empty( $value ) && in_array( $user_role , $value ) ) {
+        if( ! empty( $value ) && in_array( $user_role , $value , true ) ) {
 
           $selected = true;
 
@@ -1267,7 +1307,7 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
 
       echo '<div class="designate-detail">';
 
-      printf( '<input type="text" class="item_date_start regular-text" value="%s" placeholder="YYYY-MM-DD HH:MM:SS" />' , esc_attr( $value ) );
+      printf( '<input type="text" class="item_date_start regular-text" value="%s" placeholder="%s" />' , esc_attr( $value ) , esc_attr( 'YYYY-MM-DD HH:MM:SS' ) );
 
       echo '</div>';
 
@@ -1285,7 +1325,7 @@ abstract class MywpAbstractSettingAnnounceModule extends MywpAbstractSettingModu
 
       echo '<div class="designate-detail">';
 
-      printf( '<input type="text" class="item_date_end regular-text" value="%s" placeholder="YYYY-MM-DD HH:MM:SS" />' , esc_attr( $value ) );
+      printf( '<input type="text" class="item_date_end regular-text" value="%s" placeholder="%s" />' , esc_attr( $value ) , esc_attr( 'YYYY-MM-DD HH:MM:SS' ) );
 
       echo '</div>';
 

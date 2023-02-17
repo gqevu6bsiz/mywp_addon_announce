@@ -183,6 +183,8 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
   public static function admin_notices() {
 
     global $pagenow;
+    global $typenow;
+    global $taxnow;
 
     if( ! self::is_do_function( __FUNCTION__ ) ) {
 
@@ -190,33 +192,107 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
     }
 
-    $announces = self::get_all_announces();
+    $all_announces = self::get_all_announces();
 
-    if( ! empty( $announces ) ) {
+    $current_announces = array();
 
-      foreach( $announces as $key => $announce ) {
+    if( ! empty( $all_announces ) ) {
 
-        if( $announce->item_screen === 'all' ) {
-
-          continue;
-
-        }
+      foreach( $all_announces as $announce_id => $announce ) {
 
         $announce_screen = MywpAnnounceApi::get_announce_screen( $announce->item_screen );
 
-        if( empty( $announce_screen ) ) {
-
-          unset( $announces[ $key ] );
+        if( empty( $announce_screen['screen_id'] ) ) {
 
           continue;
 
         }
 
-        if( $pagenow !== $announce_screen['page_id'] ) {
+        if( $announce_screen['group'] === 'general' ) {
 
-          unset( $announces[ $key ] );
+          if( $announce->item_screen === 'all' ) {
 
-          continue;
+            $current_announces[ $announce_id ] = $announce;
+
+            continue;
+
+          }
+
+          if( ! empty( $announce_screen['page_id'] ) ) {
+
+            if( $announce_screen['page_id'] === $pagenow ) {
+
+              $current_announces[ $announce_id ] = $announce;
+
+              continue;
+
+            }
+
+          }
+
+        } elseif( $announce_screen['group'] === 'post_type' ) {
+
+          if( empty( $announce_screen['post_type'] ) ) {
+
+            continue;
+
+          }
+
+          if( $announce_screen['post_type'] !== $typenow ) {
+
+            continue;
+
+          }
+
+          if( $announce_screen['screen_id'] === 'posts-' . $typenow && $pagenow === 'edit.php' ) {
+
+            $current_announces[ $announce_id ] = $announce;
+
+            continue;
+
+          } elseif( $announce_screen['screen_id'] === 'post_edit_add-' . $typenow && in_array( $pagenow , array( 'post.php' , 'post-new.php' ) , true ) ) {
+
+            $current_announces[ $announce_id ] = $announce;
+
+            continue;
+
+          } else {
+
+            continue;
+
+          }
+
+        } elseif( $announce_screen['group'] === 'taxonomy' ) {
+
+          if( empty( $announce_screen['taxonomy'] ) ) {
+
+            continue;
+
+          }
+
+          if( $announce_screen['taxonomy'] !== $taxnow ) {
+
+            continue;
+
+          }
+
+          if( $announce_screen['screen_id'] === 'terms-' . $taxnow && $pagenow === 'edit-tags.php' ) {
+
+            $current_announces[ $announce_id ] = $announce;
+
+            continue;
+
+          } elseif( $announce_screen['screen_id'] === 'term_edit-' . $taxnow && in_array( $pagenow , array( 'term.php' ) , true ) ) {
+
+            $current_announces[ $announce_id ] = $announce;
+
+            continue;
+
+          } else {
+
+            continue;
+
+          }
 
         }
 
@@ -224,15 +300,15 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
     }
 
-    if( empty( $announces ) ) {
+    if( empty( $current_announces ) ) {
 
       return false;
 
     }
 
-    foreach( $announces as $announce ) {
+    foreach( $current_announces as $current_announce ) {
 
-      self::print_announce( $announce );
+      self::print_announce( $current_announce );
 
     }
 
@@ -272,7 +348,7 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
         $mywp_user = new MywpUser();
 
-        if( ! in_array( $mywp_user->get_user_role() , $item->item_user_roles ) ) {
+        if( ! in_array( $mywp_user->get_user_role() , $item->item_user_roles , true ) ) {
 
           return false;
 
@@ -378,7 +454,15 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
     $announce_content = apply_filters( 'mywp_controller_announce_print_announce_item_content' , $item->post_content );
 
-    printf( '<div class="mywp-announce updated %s" id="announce-%d">' , esc_attr( $item->item_type ) , esc_attr( $item->ID ) );
+    $add_class = '';
+
+    if( ! empty( $item->item_add_class ) ) {
+
+      $add_class = strip_tags( $item->item_add_class );
+
+    }
+
+    printf( '<div class="mywp-announce updated %s %s" id="announce-%d">' , esc_attr( $item->item_type ) , esc_html( $add_class ) , esc_attr( $item->ID ) );
 
     if( ! empty( $item->post_title ) ) {
 

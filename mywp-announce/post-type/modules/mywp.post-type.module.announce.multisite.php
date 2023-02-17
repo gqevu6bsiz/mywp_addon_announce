@@ -32,6 +32,8 @@ final class MywpPostTypeModuleAnnounceMultisite extends MywpPostTypeAbstractModu
     $post->item_type = strip_tags( MywpPostType::get_post_meta( $post_id , 'item_type' ) );
     $post->item_screen = strip_tags( MywpPostType::get_post_meta( $post_id , 'item_screen' ) );
 
+    $post->item_add_class = strip_tags( MywpPostType::get_post_meta( $post_id , 'item_add_class' ) );
+
     $post->item_is_user_roles = strip_tags( MywpPostType::get_post_meta( $post_id , 'item_is_user_roles' ) );
     $post->item_user_roles = MywpPostType::get_post_meta( $post_id , 'item_user_roles' );
 
@@ -58,6 +60,7 @@ final class MywpPostTypeModuleAnnounceMultisite extends MywpPostTypeAbstractModu
     $posts_columns['id'] = 'ID';
     $posts_columns['type'] = 'Type';
     $posts_columns['screen'] = 'Screen';
+    $posts_columns['add_class'] = 'Add Class';
     $posts_columns['hide_sites'] = 'Hide Sites';
     $posts_columns['title'] = $old_columns['title'];
     $posts_columns['info'] = 'Info';
@@ -105,6 +108,14 @@ final class MywpPostTypeModuleAnnounceMultisite extends MywpPostTypeAbstractModu
       if( $mywp_post->item_screen ) {
 
         echo $mywp_post->item_screen;
+
+      }
+
+    } elseif( $column_name === 'add_class' ) {
+
+      if( $mywp_post->item_add_class ) {
+
+        echo $mywp_post->item_add_class;
 
       }
 
