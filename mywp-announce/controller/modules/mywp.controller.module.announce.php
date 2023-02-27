@@ -318,6 +318,8 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
   private static function print_announce( $item ) {
 
+    global $post;
+
     $item = apply_filters( 'mywp_controller_announce_print_announce_item' , $item );
 
     if( empty( $item ) or empty( $item->item_type ) or empty( $item->ID ) ) {
@@ -444,6 +446,10 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
     $item->post_title = do_shortcode( $item->post_title );
 
+    $restore_post = $post;
+
+    $post = $item;
+
     add_filter( 'mywp_controller_announce_print_announce_item_content' , 'wptexturize' );
     add_filter( 'mywp_controller_announce_print_announce_item_content' , 'convert_smilies' , 20 );
     add_filter( 'mywp_controller_announce_print_announce_item_content' , 'convert_chars' );
@@ -453,6 +459,8 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
     add_filter( 'mywp_controller_announce_print_announce_item_content' , 'do_shortcode' , 11 );
 
     $announce_content = apply_filters( 'mywp_controller_announce_print_announce_item_content' , $item->post_content );
+
+    $post = $restore_post;
 
     $add_class = '';
 

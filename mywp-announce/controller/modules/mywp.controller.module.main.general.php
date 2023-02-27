@@ -70,9 +70,9 @@ final class MywpControllerModuleAnnounceMainGeneral extends MywpControllerAbstra
 
     add_filter( 'plugin_action_links_' . MYWP_ANNOUNCE_PLUGIN_BASENAME , array( __CLASS__ , 'plugin_action_links' ) , 10 , 4 );
 
-    add_action( 'in_plugin_update_message-' . MYWP_ANNOUNCE_PLUGIN_BASENAME , array( __CLASS__ , 'in_plugin_update_message' ) , 10 , 2 );
+    //add_action( 'in_plugin_update_message-' . MYWP_ANNOUNCE_PLUGIN_BASENAME , array( __CLASS__ , 'in_plugin_update_message' ) , 10 , 2 );
 
-    add_action( 'admin_print_footer_scripts' , array( __CLASS__ , 'admin_print_footer_scripts' ) );
+    //add_action( 'admin_print_footer_scripts' , array( __CLASS__ , 'admin_print_footer_scripts' ) );
 
   }
 
