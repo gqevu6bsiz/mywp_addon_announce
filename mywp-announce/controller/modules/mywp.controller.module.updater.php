@@ -279,7 +279,7 @@ final class MywpControllerModuleAnnounceUpdater extends MywpControllerAbstractMo
 
     $download_file_path = sprintf( '%s.%s.zip' , MYWP_ANNOUNCE_PLUGIN_DIRNAME , self::get_latest() );
 
-    foreach( $maybe_remote_json->assets as $asset ) {
+    foreach( $remote_json->assets as $asset ) {
 
       if( ! isset( $asset->name ) ) {
 
