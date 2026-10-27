@@ -62,8 +62,6 @@ final class MywpControllerModuleAnnounceUpdater extends MywpControllerAbstractMo
 
     if( $is_latest ) {
 
-      MywpHelper::error_not_found_message( '$is_latest' , $called_text );
-
       return $site_transient;
 
     }
