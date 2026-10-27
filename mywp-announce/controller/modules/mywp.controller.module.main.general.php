@@ -50,9 +50,9 @@ final class MywpControllerModuleAnnounceMainGeneral extends MywpControllerAbstra
 
     }
 
-    $plugin_file_name = strip_tags( $plugin_file_name );
+    $plugin_file_name = MywpHelper::sanitize_text( $plugin_file_name );
 
-    if ( strpos( MYWP_ANNOUNCE_PLUGIN_BASENAME , $plugin_file_name ) === false ) {
+    if( strpos( MYWP_ANNOUNCE_PLUGIN_BASENAME , $plugin_file_name ) === false ) {
 
       return false;
 
@@ -78,7 +78,7 @@ final class MywpControllerModuleAnnounceMainGeneral extends MywpControllerAbstra
 
   public static function plugin_row_meta( $plugin_meta , $plugin_file , $plugin_data , $status ) {
 
-    if ( ! self::is_current_plugin( $plugin_file ) ) {
+    if( ! self::is_current_plugin( $plugin_file ) ) {
 
       return $plugin_meta;
 
@@ -88,7 +88,7 @@ final class MywpControllerModuleAnnounceMainGeneral extends MywpControllerAbstra
 
     if( ! empty( $plugin_info['document_url'] ) ) {
 
-      $plugin_meta[] =  sprintf( '<a href="%1$s" target="_blank">%2$s</a>' , esc_url( $plugin_info['document_url'] ) , __( 'Documents' , 'my-wp' ) );
+      $plugin_meta[] =  sprintf( '<a href="%1$s" target="_blank">%2$s</a>' , esc_url( $plugin_info['document_url'] ) , esc_html( __( 'Documents' , 'my-wp' ) ) );
 
     }
 
@@ -100,7 +100,7 @@ final class MywpControllerModuleAnnounceMainGeneral extends MywpControllerAbstra
 
   public static function plugin_action_links( $actions , $plugin_file , $plugin_data , $context ) {
 
-    if ( ! self::is_current_plugin( $plugin_file ) ) {
+    if( ! self::is_current_plugin( $plugin_file ) ) {
 
       return $actions;
 
@@ -112,7 +112,7 @@ final class MywpControllerModuleAnnounceMainGeneral extends MywpControllerAbstra
 
       if( ! empty( $plugin_info['network_admin_url'] ) ) {
 
-        $action_link = array( 'setting' => sprintf( '<a href="%1$s">%2$s</a>' , esc_url( $plugin_info['network_admin_url'] ) , __( 'Settings' ) ) );
+        $action_link = array( 'setting' => sprintf( '<a href="%1$s">%2$s</a>' , esc_url( $plugin_info['network_admin_url'] ) , esc_html( __( 'Settings' ) ) ) );
 
         $actions = wp_parse_args( $actions , $action_link );
 
@@ -122,7 +122,7 @@ final class MywpControllerModuleAnnounceMainGeneral extends MywpControllerAbstra
 
       if( ! empty( $plugin_info['admin_url'] ) ) {
 
-        $action_link = array( 'setting' => sprintf( '<a href="%1$s">%2$s</a>' , esc_url( $plugin_info['admin_url'] ) , __( 'Settings' ) ) );
+        $action_link = array( 'setting' => sprintf( '<a href="%1$s">%2$s</a>' , esc_url( $plugin_info['admin_url'] ) , esc_html( __( 'Settings' ) ) ) );
 
         $actions = wp_parse_args( $actions , $action_link );
 
@@ -136,6 +136,7 @@ final class MywpControllerModuleAnnounceMainGeneral extends MywpControllerAbstra
 
   }
 
+  /*
   public static function in_plugin_update_message( $plugin_data , $response ) {
 
     if( empty( $response->new_version ) ) {
@@ -150,7 +151,7 @@ final class MywpControllerModuleAnnounceMainGeneral extends MywpControllerAbstra
 
     $plugin_info = MywpAnnounceApi::plugin_info();
 
-    printf( __( 'There is a new version of %1$s available. <a href="%2$s" %3$s>View version %4$s details</a>.' ) , $response->new_version , $plugin_info['github'] , 'target="_blank"' ,  MYWP_ANNOUNCE_NAME );
+    echo sprintf( __( 'There is a new version of %1$s available. <a href="%2$s" target="_blank">View version %3$s details</a>.' ) , esc_html( $response->new_version ) , esc_url( $plugin_info['github'] ) , esc_html( MYWP_ANNOUNCE_NAME ) );
 
   }
 
@@ -158,12 +159,13 @@ final class MywpControllerModuleAnnounceMainGeneral extends MywpControllerAbstra
 
     echo '<style>';
 
-    printf( 'tr#%s-update .update-message p { display: none; }' , MYWP_ANNOUNCE_PLUGIN_DIRNAME );
-    printf( 'tr#%s-update .update-message p.show { display: block; }' , MYWP_ANNOUNCE_PLUGIN_DIRNAME );
+    echo sprintf( 'tr#%s-update .update-message p { display: none; }' , esc_html( MYWP_ANNOUNCE_PLUGIN_DIRNAME ) );
+    echo sprintf( 'tr#%s-update .update-message p.show { display: block; }' , esc_html( MYWP_ANNOUNCE_PLUGIN_DIRNAME ) );
 
     echo '</style>';
 
   }
+  */
 
 }
 

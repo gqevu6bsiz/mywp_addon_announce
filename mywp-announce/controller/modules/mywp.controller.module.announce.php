@@ -108,7 +108,7 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
     if( ! empty( $setting_data['cache_timeout'] ) ) {
 
-      $timeout_min = intval( $setting_data['cache_timeout'] );
+      $timeout_min = MywpHelper::sanitize_number( $setting_data['cache_timeout'] );
 
     }
 
@@ -140,13 +140,17 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
     $announces = apply_filters( 'mywp_controller_announce_get_announce' , $posts );
 
-    if( ! empty( $timeout_min ) && ! empty( $announces ) ) {
+    if( ! empty( $timeout_min ) ) {
 
-      $announces_strlen = strlen( maybe_serialize( $announces ) );
+      if( ! empty( $announces ) ) {
 
-      if( $announces_strlen < MywpHelper::get_max_allowed_packet_size() ) {
+        $announces_strlen = strlen( maybe_serialize( $announces ) );
 
-        $mywp_transient->update_data( $announces , $timeout_min * MINUTE_IN_SECONDS );
+        if( $announces_strlen < MywpHelper::get_max_allowed_packet_size() ) {
+
+          $mywp_transient->update_data( $announces , $timeout_min * MINUTE_IN_SECONDS );
+
+        }
 
       }
 
@@ -192,6 +196,8 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
     }
 
+    $called_text = sprintf( '%s::%s()' , __CLASS__ , __FUNCTION__ );
+
     $all_announces = self::get_all_announces();
 
     $current_announces = array();
@@ -200,9 +206,33 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
       foreach( $all_announces as $announce_id => $announce ) {
 
+        if( empty( $announce ) ) {
+
+          MywpHelper::error_not_found_message( '$announce' , $called_text );
+
+          continue;
+
+        }
+
+        if( ! is_object( $announce ) ) {
+
+          MywpHelper::error_invalid_message( '$announce' , 'is_object()' , $called_text );
+
+          continue;
+
+        }
+
+        if( empty( $announce->item_screen ) ) {
+
+          MywpHelper::error_not_found_message( '$announce->item_screen' , $called_text );
+
+          continue;
+
+        }
+
         $announce_screen = MywpAnnounceApi::get_announce_screen( $announce->item_screen );
 
-        if( empty( $announce_screen['screen_id'] ) ) {
+        if( empty( $announce_screen ) ) {
 
           continue;
 
@@ -320,9 +350,39 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
     global $post;
 
+    $called_text = sprintf( '%s::%s( $item )' , __CLASS__ , __FUNCTION__ );
+
     $item = apply_filters( 'mywp_controller_announce_print_announce_item' , $item );
 
-    if( empty( $item ) or empty( $item->item_type ) or empty( $item->ID ) ) {
+    if( empty( $item ) ) {
+
+      MywpHelper::error_require_message( '$item' , $called_text );
+
+      return false;
+
+    }
+
+    if( ! is_object( $item ) ) {
+
+      MywpHelper::error_invalid_message( '$item' , 'is_object()' , $called_text );
+
+      return false;
+
+    }
+
+    if( empty( $item->item_type ) ) {
+
+      MywpHelper::error_not_found_message( '$item->item_type' , $called_text );
+
+      return false;
+
+    }
+
+    $item_type = MywpHelper::sanitize_text( $item->item_type );
+
+    if( empty( $item->ID ) ) {
+
+      MywpHelper::error_not_found_message( '$item->ID' , $called_text );
 
       return false;
 
@@ -332,11 +392,11 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
     if( is_numeric( $item_id ) ) {
 
-      $item_id = intval( $item_id );
+      $item_id = MywpHelper::sanitize_number( $item_id );
 
     } else {
 
-      $item_id = strip_tags( $item_id );
+      $item_id = MywpHelper::sanitize_text( $item_id );
 
     }
 
@@ -374,6 +434,8 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
         if( empty( $timestamp ) ) {
 
+          MywpHelper::error_not_found_message( '$timestamp' , $called_text );
+
           return false;
 
         }
@@ -398,6 +460,14 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
         $timestamp = strtotime( $item->item_date_end );
 
+        if( empty( $timestamp ) ) {
+
+          MywpHelper::error_not_found_message( '$timestamp' , $called_text );
+
+          return false;
+
+        }
+
         if( $current_time_stamp > $timestamp ) {
 
           return false;
@@ -410,25 +480,27 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
     if( ! empty( $item->item_hide_sites ) ) {
 
+      $hide_sites = array();
+
       if( strpos( $item->item_hide_sites , ',' ) === false ) {
 
-        $item_hide_sites = array( intval( $item->item_hide_sites ) );
+        $hide_sites[] = MywpHelper::sanitize_number( $item->item_hide_sites );
 
       } else {
 
         $item_hide_sites = explode( ',' , $item->item_hide_sites );
 
-        foreach( $item_hide_sites as $key => $val ) {
+        foreach( $item_hide_sites as $key => $item_hide_site_id ) {
 
-          if( empty( $val ) ) {
+          if( empty( $item_hide_site_id ) ) {
 
-            unset( $item_hide_sites[ $key ] );
+            MywpHelper::error_not_found_message( '$item_hide_site_id' , $called_text );
 
-          } else {
-
-            $item_hide_sites[ $key ] = intval( $val );
+            continue;
 
           }
+
+          $hide_sites[] = MywpHelper::sanitize_number( $item_hide_site_id );
 
         }
 
@@ -436,7 +508,7 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
       $current_blog_id = get_current_blog_id();
 
-      if( in_array( $current_blog_id , $item_hide_sites , true ) ) {
+      if( in_array( (int) $current_blog_id , $hide_sites , true ) ) {
 
         return false;
 
@@ -466,25 +538,29 @@ final class MywpControllerModuleAnnounce extends MywpControllerAbstractModule {
 
     if( ! empty( $item->item_add_class ) ) {
 
-      $add_class = strip_tags( $item->item_add_class );
+      $add_class = MywpHelper::sanitize_text( $item->item_add_class );
 
     }
 
-    printf( '<div class="mywp-announce updated %s %s" id="announce-%d">' , esc_attr( $item->item_type ) , esc_html( $add_class ) , esc_attr( $item->ID ) );
+    ?>
 
-    if( ! empty( $item->post_title ) ) {
+    <div class="mywp-announce updated <?php echo esc_attr( $item_type ); ?> <?php echo esc_attr( $add_class ); ?>" id="announce-esc_attr( $item_id )">
 
-      printf( '<p class="title">%s</p>' , $item->post_title );
+      <?php if( ! empty( $item->post_title ) ) : ?>
 
-    }
+        <p class="title"><?php echo wp_kses_post( $item->post_title ); ?></p>
 
-    if( ! empty( $announce_content ) ) {
+      <?php endif; ?>
 
-      echo $announce_content;
+      <?php if( ! empty( $announce_content ) ) : ?>
 
-    }
+        <?php echo wp_kses_post( $announce_content ); ?>
 
-    echo '</div>';
+      <?php endif; ?>
+
+    </div>
+
+    <?php
 
   }
 

@@ -32,6 +32,8 @@ final class MywpSettingScreenAnnounceMultisite extends MywpAbstractSettingAnnoun
 
   public static function mywp_setting_announce_print_item_content( $item ) {
 
+    $called_text = sprintf( '%s::%s( $item )' , __CLASS__ , __FUNCTION__ );
+
     if( ! is_network_admin() ) {
 
       return false;
@@ -39,6 +41,8 @@ final class MywpSettingScreenAnnounceMultisite extends MywpAbstractSettingAnnoun
     }
 
     if( empty( $item ) ) {
+
+      MywpHelper::error_require_message( '$item' , $called_text );
 
       return false;
 
@@ -49,7 +53,7 @@ final class MywpSettingScreenAnnounceMultisite extends MywpAbstractSettingAnnoun
     <table class="form-table hide-sites-setting">
       <tbody>
         <tr>
-          <th><?php _e( 'Announce Hide Sites' , 'mywp-announce' ); ?></th>
+          <th><?php echo esc_html( __( 'Announce Hide Sites' , 'mywp-announce' ) ); ?></th>
           <td>
             <?php self::print_item_content_field( 'item_hide_sites' , $item->item_hide_sites , $item ); ?>
           </td>
@@ -123,7 +127,7 @@ final class MywpSettingScreenAnnounceMultisite extends MywpAbstractSettingAnnoun
 
     $is_switch_to_blog = MywpAnnounceApi::is_switch_to_blog();
 
-    $posts = MywpSetting::get_posts( $args );
+    $posts = MywpSetting::get_posts( $args , self::$id );
 
     if( $is_switch_to_blog ) {
 
@@ -211,7 +215,9 @@ final class MywpSettingScreenAnnounceMultisite extends MywpAbstractSettingAnnoun
 
     ?>
 
-    <h3 class="mywp-setting-screen-subtitle"><?php _e( 'Announce for all sites' , 'mywp-announce' ); ?></h3>
+    <h3 class="mywp-setting-screen-subtitle">
+      <?php echo esc_html( __( 'Announce for all sites' , 'mywp-announce' ) ); ?>
+    </h3>
 
     <?php
 

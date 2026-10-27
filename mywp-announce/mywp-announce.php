@@ -3,12 +3,12 @@
 Plugin Name: My WP Add-on Announce
 Plugin URI: https://mywpcustomize.com/
 Description: My WP Add-on Announce is announcement to the admin Dashboard for users.
-Version: 1.4.1
+Version: 1.5.0
 Author: gqevu6bsiz
-Author URI: http://gqevu6bsiz.chicappa.jp/
+Author URI: https://gqevu6bsiz.chicappa.jp/
 Text Domain: mywp-announce
 Domain Path: /languages/
-My WP Test working: 1.20
+My WP Test working: 1.28.0
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -31,7 +31,7 @@ final class MywpAnnounce {
   private static function define_constants() {
 
     define( 'MYWP_ANNOUNCE_NAME' , 'My WP Add-on Announce' );
-    define( 'MYWP_ANNOUNCE_VERSION' , '1.4.1' );
+    define( 'MYWP_ANNOUNCE_VERSION' , '1.5.0' );
     define( 'MYWP_ANNOUNCE_PLUGIN_FILE' , __FILE__ );
     define( 'MYWP_ANNOUNCE_PLUGIN_BASENAME' , plugin_basename( MYWP_ANNOUNCE_PLUGIN_FILE ) );
     define( 'MYWP_ANNOUNCE_PLUGIN_DIRNAME' , dirname( MYWP_ANNOUNCE_PLUGIN_BASENAME ) );
@@ -45,6 +45,7 @@ final class MywpAnnounce {
     $dir = MYWP_ANNOUNCE_PLUGIN_PATH . 'core/';
 
     require_once( $dir . 'class.api.php' );
+    require_once( $dir . 'class.imcompatible.php' );
 
   }
 
@@ -58,11 +59,21 @@ final class MywpAnnounce {
 
   public static function mywp_plugins_loaded() {
 
-    add_filter( 'mywp_post_type_plugins_loaded_include_modules' , array( __CLASS__ , 'mywp_post_type_plugins_loaded_include_modules' ) );
+    $version_compare = version_compare( MYWP_VERSION , '1.28.0' , '>=' );
 
-    add_filter( 'mywp_controller_plugins_loaded_include_modules' , array( __CLASS__ , 'mywp_controller_plugins_loaded_include_modules' ) );
+    if( ! $version_compare ) {
 
-    add_filter( 'mywp_setting_plugins_loaded_include_modules' , array( __CLASS__ , 'mywp_setting_plugins_loaded_include_modules' ) );
+      add_action( 'mywp_wp_loaded' , array( 'MywpAnnounceIncompatible' , 'init' ) );
+
+    } else {
+
+      add_filter( 'mywp_post_type_plugins_loaded_include_modules' , array( __CLASS__ , 'mywp_post_type_plugins_loaded_include_modules' ) );
+
+      add_filter( 'mywp_controller_plugins_loaded_include_modules' , array( __CLASS__ , 'mywp_controller_plugins_loaded_include_modules' ) );
+
+      add_filter( 'mywp_setting_plugins_loaded_include_modules' , array( __CLASS__ , 'mywp_setting_plugins_loaded_include_modules' ) );
+
+    }
 
   }
 

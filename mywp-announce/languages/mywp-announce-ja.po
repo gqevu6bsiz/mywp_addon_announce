@@ -1,21 +1,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: My WP Add-on Announce\n"
-"POT-Creation-Date: 2021-09-01 22:13+0900\n"
-"PO-Revision-Date: 2021-09-01 22:14+0900\n"
+"POT-Creation-Date: 2026-10-27 16:48+0900\n"
+"PO-Revision-Date: 2026-10-27 16:52+0900\n"
 "Last-Translator: gqevu6bsiz <gqevu6bsiz@gmail.com>\n"
 "Language-Team: info@mywpcustomize.com\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
-"X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.10\n"
+"X-Poedit-Basepath: .\n"
 
 #: controller/modules/mywp.controller.module.main.general.php:91
-#: setting/abstract.setting.announce.module.php:516
-#: setting/abstract.setting.announce.module.php:518
+#: setting/abstract.setting.announce.module.php:686
+#: setting/abstract.setting.announce.module.php:690
 msgid "Documents"
 msgstr "ドキュメント"
 
@@ -24,207 +24,227 @@ msgstr "ドキュメント"
 msgid "Settings"
 msgstr "設定"
 
-#: controller/modules/mywp.controller.module.main.general.php:153
-#, php-format
-msgid ""
-"There is a new version of %1$s available. <a href=\"%2$s\" %3$s>View version "
-"%4$s details</a>."
-msgstr ""
-
-#: controller/modules/mywp.controller.module.updater.php:106
-#: controller/modules/mywp.controller.module.updater.php:143
+#: controller/modules/mywp.controller.module.updater.php:140
+#: controller/modules/mywp.controller.module.updater.php:182
 msgid "Connection lost or the server is busy. Please try again later."
 msgstr "サーバに接続できませんでした。 時間をおいてもう一度お試しください。"
 
-#: controller/modules/mywp.controller.module.updater.php:137
-#: controller/modules/mywp.controller.module.updater.php:153
-#: setting/abstract.setting.announce.module.php:595
-#: setting/abstract.setting.announce.module.php:625
-#: setting/abstract.setting.announce.module.php:682
-#: setting/abstract.setting.announce.module.php:692
-#: setting/abstract.setting.announce.module.php:724
-#: setting/abstract.setting.announce.module.php:736
-#: setting/abstract.setting.announce.module.php:782
-#: setting/abstract.setting.announce.module.php:796
-#: setting/abstract.setting.announce.module.php:846
-#: setting/abstract.setting.announce.module.php:854
-#: setting/abstract.setting.announce.module.php:965
-#: setting/abstract.setting.announce.module.php:973
+#: controller/modules/mywp.controller.module.updater.php:176
+#: controller/modules/mywp.controller.module.updater.php:194
+#: setting/abstract.setting.announce.module.php:768
+#: setting/abstract.setting.announce.module.php:798
+#: setting/abstract.setting.announce.module.php:855
+#: setting/abstract.setting.announce.module.php:865
+#: setting/abstract.setting.announce.module.php:899
+#: setting/abstract.setting.announce.module.php:913
+#: setting/abstract.setting.announce.module.php:955
+#: setting/abstract.setting.announce.module.php:969
+#: setting/abstract.setting.announce.module.php:1038
+#: setting/abstract.setting.announce.module.php:1046
+#: setting/abstract.setting.announce.module.php:1157
+#: setting/abstract.setting.announce.module.php:1165
 msgid "An error has occurred. Please reload the page and try again."
 msgstr ""
 "予期しないエラーが発生しました。ページをリロードして、もう一度お試しくださ"
 "い。"
 
-#: controller/modules/mywp.controller.module.updater.php:189
-msgid "Invalid remote Json data. Please try again."
-msgstr "リモートのJsonデータエラー。 もう一度お試しください。"
+#: controller/modules/mywp.controller.module.updater.php:372
+msgid "Failed to check for the latest version."
+msgstr "最新版をチェックする。"
 
-#: controller/modules/mywp.controller.module.updater.php:199
-msgid "Invalid results. Sorry maybe update format changed."
-msgstr "形式エラー。アップデートの形式が変更された可能性があります。"
-
-#: core/class.api.php:49
+#: core/class.api.php:50
 msgid "Gray"
 msgstr "灰色"
 
-#: core/class.api.php:50
+#: core/class.api.php:51
 msgid "Normal"
 msgstr "標準"
 
-#: core/class.api.php:53
+#: core/class.api.php:54
 msgid "Green"
 msgstr "緑"
 
-#: core/class.api.php:54 setting/abstract.setting.announce.module.php:1152
+#: core/class.api.php:55 setting/abstract.setting.announce.module.php:1390
 msgid "Update"
 msgstr "更新"
 
-#: core/class.api.php:57
+#: core/class.api.php:58
 msgid "Red"
 msgstr "赤"
 
-#: core/class.api.php:58
+#: core/class.api.php:59
 msgid "Error"
 msgstr "エラー"
 
-#: core/class.api.php:62
+#: core/class.api.php:63
 msgid "Default"
 msgstr "デフォルト"
 
-#: core/class.api.php:66
+#: core/class.api.php:67
 msgid "Custom"
-msgstr ""
+msgstr "カスタム"
 
-#: core/class.api.php:80
-msgid "Dashboard"
-msgstr "ダッシュボード"
+#: core/class.api.php:81
+msgid "General"
+msgstr "一般"
 
 #: core/class.api.php:84
+msgid "Post Type"
+msgstr "投稿タイプ"
+
+#: core/class.api.php:87
+msgid "Taxonomy"
+msgstr "タクソノミー"
+
+#: core/class.api.php:101
 msgid "All admin screens"
 msgstr "全管理画面"
 
-#: setting/abstract.setting.announce.module.php:67
-#: setting/abstract.setting.announce.module.php:503
+#: core/class.api.php:105
+msgid "Dashboard"
+msgstr "ダッシュボード"
+
+#: core/class.imcompatible.php:39
+#, php-format
+msgid ""
+"Sorry, %s is <strong>Incompatible</strong> with your version of My WP "
+"Customize. Require version  %s."
+msgstr ""
+"%s は My WP Customize と<strong>互換性がありません</strong>。\n"
+"必要なバージョン %s。"
+
+#: setting/abstract.setting.announce.module.php:79
+#: setting/abstract.setting.announce.module.php:670
 msgid "Using a latest version."
 msgstr "最新版をご利用中です。"
 
-#: setting/abstract.setting.announce.module.php:403
-msgid "Announces not found. You can Add Announce."
-msgstr "通知が見つかりませんでした。通知を追加してください。"
-
-#: setting/abstract.setting.announce.module.php:410
+#: setting/abstract.setting.announce.module.php:562
 msgid "Add Announce"
 msgstr "通知を追加"
 
-#: setting/abstract.setting.announce.module.php:419
+#: setting/abstract.setting.announce.module.php:571
 msgid "Drag announce items to edit and reorder announces."
 msgstr "通知アイテムの順番をドラッグで変更できます。"
 
-#: setting/abstract.setting.announce.module.php:451
+#: setting/abstract.setting.announce.module.php:605
 msgid "Cache Timeout"
 msgstr "キャッシュタイムアウト"
 
-#: setting/abstract.setting.announce.module.php:455
+#: setting/abstract.setting.announce.module.php:609
 msgid "Minute"
 msgstr "分"
 
-#: setting/abstract.setting.announce.module.php:457
+#: setting/abstract.setting.announce.module.php:613
 msgid "Remove Cache"
 msgstr "キャッシュを削除"
 
-#: setting/abstract.setting.announce.module.php:494
+#: setting/abstract.setting.announce.module.php:658
 msgid "Plugin info"
 msgstr "プラグイン情報"
 
-#: setting/abstract.setting.announce.module.php:499
+#: setting/abstract.setting.announce.module.php:664
 #, php-format
 msgid "Version %s"
 msgstr "バージョン %s"
 
-#: setting/abstract.setting.announce.module.php:502
+#: setting/abstract.setting.announce.module.php:667
 #, php-format
 msgid "Get Version %s"
 msgstr "バージョン %s を取得"
 
-#: setting/abstract.setting.announce.module.php:508
+#: setting/abstract.setting.announce.module.php:675
 msgid "Check latest"
 msgstr "最新版チェック"
 
-#: setting/abstract.setting.announce.module.php:510
+#: setting/abstract.setting.announce.module.php:679
 msgid "Check latest version"
 msgstr "最新版をチェックする"
 
-#: setting/abstract.setting.announce.module.php:1091
-#: setting/abstract.setting.announce.module.php:1192
+#: setting/abstract.setting.announce.module.php:1321
+#: setting/abstract.setting.announce.module.php:1441
 msgid "Announce Title"
 msgstr "通知タイトル"
 
-#: setting/abstract.setting.announce.module.php:1097
+#: setting/abstract.setting.announce.module.php:1327
 msgid "Announce Type"
 msgstr "通知タイプ"
 
-#: setting/abstract.setting.announce.module.php:1103
+#: setting/abstract.setting.announce.module.php:1333
 msgid "Announce Screen"
 msgstr "通知画面"
 
-#: setting/abstract.setting.announce.module.php:1109
+#: setting/abstract.setting.announce.module.php:1339
 msgid "Announce Content"
 msgstr "通知内容"
 
-#: setting/abstract.setting.announce.module.php:1117
+#: setting/abstract.setting.announce.module.php:1348
 msgid "More Details"
 msgstr "詳細"
 
-#: setting/abstract.setting.announce.module.php:1124
+#: setting/abstract.setting.announce.module.php:1356
+msgid "Add Class"
+msgstr "Classを追加"
+
+#: setting/abstract.setting.announce.module.php:1362
 msgid "User Roles"
 msgstr "ユーザー権限グループ"
 
-#: setting/abstract.setting.announce.module.php:1131
+#: setting/abstract.setting.announce.module.php:1369
 msgid "Start Date"
 msgstr "開始日時"
 
-#: setting/abstract.setting.announce.module.php:1138
+#: setting/abstract.setting.announce.module.php:1376
 msgid "End Date"
 msgstr "終了日時"
 
-#: setting/abstract.setting.announce.module.php:1154
+#: setting/abstract.setting.announce.module.php:1394
 msgid "Remove"
 msgstr "削除"
 
-#: setting/abstract.setting.announce.module.php:1228
-#: setting/abstract.setting.announce.module.php:1262
-#: setting/abstract.setting.announce.module.php:1280
+#: setting/abstract.setting.announce.module.php:1513
+#: setting/abstract.setting.announce.module.php:1549
+#: setting/abstract.setting.announce.module.php:1567
 msgid "Designate"
 msgstr "指定する"
 
-#: setting/abstract.setting.announce.module.php:1294
+#: setting/abstract.setting.announce.module.php:1581
 msgid "Please enter the Blogs ID with comma if you want hide announce."
 msgstr "カンマ付きでブログIDを入力してください。"
 
-#: setting/abstract.setting.announce.module.php:1316
+#: setting/abstract.setting.announce.module.php:1603
 msgid "Not found Blog ID"
 msgstr "ブログIDが見つかりませんでした"
 
-#: setting/modules/mywp.setting.announce.multisite.php:52
+#: setting/modules/mywp.setting.announce.multisite.php:56
 msgid "Announce Hide Sites"
 msgstr "通知を表示しないサイト"
 
-#: setting/modules/mywp.setting.announce.multisite.php:175
-#: setting/modules/mywp.setting.announce.multisite.php:191
+#: setting/modules/mywp.setting.announce.multisite.php:179
+#: setting/modules/mywp.setting.announce.multisite.php:195
 #: setting/modules/mywp.setting.announce.php:76
 #: setting/modules/mywp.setting.announce.php:87
 msgid "Announce"
 msgstr "通知"
 
-#: setting/modules/mywp.setting.announce.multisite.php:214
+#: setting/modules/mywp.setting.announce.multisite.php:219
 msgid "Announce for all sites"
 msgstr "全てのサイトへの通知"
 
-#: setting/modules/mywp.setting.announce.php:114
+#: setting/modules/mywp.setting.announce.php:115
 msgid "Announcements"
 msgstr "通知"
 
-#. Description of the plugin/theme
-msgid "My WP Add-on Announce is announcement to the admin Dashboard for users."
-msgstr ""
-"My WP Add-on Announce はユーザーにダッシュボードへお知らせを掲載できます。"
+#~ msgid "Invalid remote Json data. Please try again."
+#~ msgstr "リモートのJsonデータエラー。 もう一度お試しください。"
+
+#~ msgid "Invalid results. Sorry maybe update format changed."
+#~ msgstr "形式エラー。アップデートの形式が変更された可能性があります。"
+
+#~ msgid "Announces not found. You can Add Announce."
+#~ msgstr "通知が見つかりませんでした。通知を追加してください。"
+
+#~ msgid ""
+#~ "My WP Add-on Announce is announcement to the admin Dashboard for users."
+#~ msgstr ""
+#~ "My WP Add-on Announce はユーザーにダッシュボードへお知らせを掲載できま"
+#~ "す。"

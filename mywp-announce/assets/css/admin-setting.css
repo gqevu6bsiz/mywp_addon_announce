@@ -39,7 +39,9 @@
 }
 #setting-screen-announce-items .sortable-placeholder {
   margin: 0;
-  background: #ccc;
+  background: #F7E0C5;
+  border-radius: 0;
+  border: 1px dashed #d9b78f;
 }
 #setting-screen-announce-items .setting-screen-announce-item .item-header {
   cursor: move;

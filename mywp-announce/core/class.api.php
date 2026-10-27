@@ -15,8 +15,8 @@ final class MywpAnnounceApi {
       'document_url' => 'https://mywpcustomize.com/add_ons/add-on-announce/',
       'website_url' => 'https://mywpcustomize.com/',
       'github' => 'https://github.com/gqevu6bsiz/mywp_addon_announce',
-      'github_raw' => 'https://raw.githubusercontent.com/gqevu6bsiz/mywp_addon_announce/',
-      'github_tags' => 'https://api.github.com/repos/gqevu6bsiz/mywp_addon_announce/tags',
+      'github_releases' => 'https://github.com/gqevu6bsiz/mywp_addon_announce/releases',
+      'github_release_latest' => 'https://api.github.com/repos/gqevu6bsiz/mywp_addon_announce/releases/latest',
     );
 
     if( is_multisite() ) {
@@ -275,9 +275,13 @@ final class MywpAnnounceApi {
 
   public static function get_announce_screen( $announce_screen_id = false ) {
 
-    $announce_screen_id = strip_tags( $announce_screen_id );
+    $called_text = sprintf( '%s::%s( $announce_screen_id )' , __CLASS__ , __FUNCTION__ );
+
+    $announce_screen_id = MywpHelper::sanitize_text( $announce_screen_id );
 
     if( empty( $announce_screen_id ) ) {
+
+      MywpHelper::error_require_message( '$announce_screen_id' , $called_text );
 
       return false;
 

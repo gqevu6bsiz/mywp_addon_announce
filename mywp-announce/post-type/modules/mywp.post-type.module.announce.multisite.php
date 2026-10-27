@@ -29,21 +29,21 @@ final class MywpPostTypeModuleAnnounceMultisite extends MywpPostTypeAbstractModu
 
     $post_id = $post->ID;
 
-    $post->item_type = strip_tags( MywpPostType::get_post_meta( $post_id , 'item_type' ) );
-    $post->item_screen = strip_tags( MywpPostType::get_post_meta( $post_id , 'item_screen' ) );
+    $post->item_type = MywpHelper::sanitize_text( MywpPostType::get_post_meta( $post_id , 'item_type' ) );
+    $post->item_screen = MywpHelper::sanitize_text( MywpPostType::get_post_meta( $post_id , 'item_screen' ) );
 
-    $post->item_add_class = strip_tags( MywpPostType::get_post_meta( $post_id , 'item_add_class' ) );
+    $post->item_add_class = MywpHelper::sanitize_text( MywpPostType::get_post_meta( $post_id , 'item_add_class' ) );
 
-    $post->item_is_user_roles = strip_tags( MywpPostType::get_post_meta( $post_id , 'item_is_user_roles' ) );
-    $post->item_user_roles = MywpPostType::get_post_meta( $post_id , 'item_user_roles' );
+    $post->item_is_user_roles = MywpHelper::sanitize_text( MywpPostType::get_post_meta( $post_id , 'item_is_user_roles' ) );
+    $post->item_user_roles = wp_parse_args( MywpPostType::get_post_meta( $post_id , 'item_user_roles' ) , array() );
 
-    $post->item_is_date_start = strip_tags( MywpPostType::get_post_meta( $post_id , 'item_is_date_start' ) );
-    $post->item_date_start = strip_tags( MywpPostType::get_post_meta( $post_id , 'item_date_start' ) );
+    $post->item_is_date_start = MywpHelper::sanitize_text( MywpPostType::get_post_meta( $post_id , 'item_is_date_start' ) );
+    $post->item_date_start = MywpHelper::sanitize_date( MywpPostType::get_post_meta( $post_id , 'item_date_start' ) );
 
-    $post->item_is_date_end = strip_tags( MywpPostType::get_post_meta( $post_id , 'item_is_date_end' ) );
-    $post->item_date_end = strip_tags( MywpPostType::get_post_meta( $post_id , 'item_date_end' ) );
+    $post->item_is_date_end = MywpHelper::sanitize_text( MywpPostType::get_post_meta( $post_id , 'item_is_date_end' ) );
+    $post->item_date_end = MywpHelper::sanitize_date( MywpPostType::get_post_meta( $post_id , 'item_date_end' ) );
 
-    $post->item_hide_sites = strip_tags( MywpPostType::get_post_meta( $post_id , 'item_hide_sites' ) );
+    $post->item_hide_sites = MywpHelper::sanitize_text( MywpPostType::get_post_meta( $post_id , 'item_hide_sites' ) );
 
     return $post;
 
@@ -83,7 +83,7 @@ final class MywpPostTypeModuleAnnounceMultisite extends MywpPostTypeAbstractModu
 
       if( $mywp_post->menu_order ) {
 
-        echo $mywp_post->menu_order;
+        echo esc_html( $mywp_post->menu_order );
 
       }
 
@@ -91,7 +91,7 @@ final class MywpPostTypeModuleAnnounceMultisite extends MywpPostTypeAbstractModu
 
       if( $mywp_post->ID ) {
 
-        echo $mywp_post->ID;
+        echo esc_html( $mywp_post->ID );
 
       }
 
@@ -99,7 +99,7 @@ final class MywpPostTypeModuleAnnounceMultisite extends MywpPostTypeAbstractModu
 
       if( $mywp_post->item_type ) {
 
-        echo $mywp_post->item_type;
+        echo esc_html( $mywp_post->item_type );
 
       }
 
@@ -107,7 +107,7 @@ final class MywpPostTypeModuleAnnounceMultisite extends MywpPostTypeAbstractModu
 
       if( $mywp_post->item_screen ) {
 
-        echo $mywp_post->item_screen;
+        echo esc_html( $mywp_post->item_screen );
 
       }
 
@@ -115,7 +115,7 @@ final class MywpPostTypeModuleAnnounceMultisite extends MywpPostTypeAbstractModu
 
       if( $mywp_post->item_add_class ) {
 
-        echo $mywp_post->item_add_class;
+        echo esc_html( $mywp_post->item_add_class );
 
       }
 
@@ -123,13 +123,13 @@ final class MywpPostTypeModuleAnnounceMultisite extends MywpPostTypeAbstractModu
 
       if( $mywp_post->item_hide_sites ) {
 
-        echo $mywp_post->item_hide_sites;
+        echo esc_html( $mywp_post->item_hide_sites );
 
       }
 
     } elseif( $column_name === 'info' ) {
 
-      printf( '<textarea readonly="readonly">%s</textarea>' , print_r( $mywp_post , true ) );
+      printf( '<textarea readonly="readonly">%s</textarea>' , esc_textarea( print_r( $mywp_post , true ) ) );
 
     }
 

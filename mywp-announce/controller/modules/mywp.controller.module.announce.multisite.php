@@ -40,12 +40,11 @@ final class MywpControllerModuleAnnounceMultisite extends MywpControllerAbstract
 
     if( ! empty( $setting_data['cache_timeout'] ) ) {
 
-      $timeout_min = intval( $setting_data['cache_timeout'] );
+      $timeout_min = MywpHelper::sanitize_number( $setting_data['cache_timeout'] );
 
     }
 
     $mywp_transient = new MywpTransient( 'announce_multisite_get_announces' , 'controller' , true );
-
 
     if( ! empty( $timeout_min ) ) {
 
@@ -81,13 +80,17 @@ final class MywpControllerModuleAnnounceMultisite extends MywpControllerAbstract
 
     $announces = apply_filters( 'mywp_controller_announce_multisite_get_announce' , $posts );
 
-    if( ! empty( $timeout_min ) && ! empty( $announces ) ) {
+    if( ! empty( $timeout_min ) ) {
 
-      $announces_strlen = strlen( maybe_serialize( $announces ) );
+      if( ! empty( $announces ) ) {
 
-      if( $announces_strlen < MywpHelper::get_max_allowed_packet_size() ) {
+        $announces_strlen = strlen( maybe_serialize( $announces ) );
 
-        $mywp_transient->update_data( $announces , $timeout_min * MINUTE_IN_SECONDS );
+        if( $announces_strlen < MywpHelper::get_max_allowed_packet_size() ) {
+
+          $mywp_transient->update_data( $announces , $timeout_min * MINUTE_IN_SECONDS );
+
+        }
 
       }
 

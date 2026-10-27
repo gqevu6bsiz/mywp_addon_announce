@@ -48,7 +48,7 @@ final class MywpSettingScreenAnnounce extends MywpAbstractSettingAnnounceModule 
 
   protected static function get_posts( $args ) {
 
-    $posts = MywpSetting::get_posts( $args );
+    $posts = MywpSetting::get_posts( $args , self::$id );
 
     return $posts;
 
@@ -111,7 +111,9 @@ final class MywpSettingScreenAnnounce extends MywpAbstractSettingAnnounceModule 
 
     ?>
 
-    <h3 class="mywp-setting-screen-subtitle"><?php _e( 'Announcements' , 'mywp-announce' ); ?></h3>
+    <h3 class="mywp-setting-screen-subtitle">
+      <?php echo esc_html( __( 'Announcements' , 'mywp-announce' ) ); ?>
+    </h3>
 
     <?php
 
